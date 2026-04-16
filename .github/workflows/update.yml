@@ -2,8 +2,8 @@ name: Update podcast index
 
 on:
   schedule:
-    # Every Monday at 08:00 UTC — well after typical weekend episode releases
-    - cron: "0 8 * * 1"
+    # Every Tuesday at 01:00 UTC — bi-weekly gate applied in the job below
+    - cron: "0 1 * * 2"
   push:
     paths:
       # Also rebuild when a transcript is added/updated
@@ -19,28 +19,52 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Bi-weekly gate: for scheduled runs, only proceed on odd ISO weeks.
+      # Manual triggers (workflow_dispatch) and transcript pushes always proceed.
+      - name: Check bi-weekly schedule
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            WEEK=$(date +%V)
+            if [ $(( 10#$WEEK % 2 )) -eq 1 ]; then
+              echo "proceed=true" >> $GITHUB_OUTPUT
+            else
+              echo "Week $WEEK is even — skipping this run."
+              echo "proceed=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout repository
+        if: steps.gate.outputs.proceed == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: steps.gate.outputs.proceed == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
 
       - name: Install dependencies
+        if: steps.gate.outputs.proceed == 'true'
         run: pip install -r requirements.txt
 
       - name: Fetch RSS feed
+        if: steps.gate.outputs.proceed == 'true'
         run: python scripts/rss_fetch.py
 
       - name: Build site data
+        if: steps.gate.outputs.proceed == 'true'
         run: python scripts/build_site.py
 
       - name: Validate output
+        if: steps.gate.outputs.proceed == 'true'
         run: python scripts/validate.py
 
       - name: Commit and push if changed
+        if: steps.gate.outputs.proceed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
