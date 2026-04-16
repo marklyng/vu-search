@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Videnskabeligt Udfordret — Søg i afsnit</title>
+  <meta name="description" content="Søg i alle afsnit af Videnskabeligt Udfordret. Find det afsnit du leder efter." />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <img src="Hane.png" alt="" class="header-logo" />
+      <div>
+        <h1>Videnskabeligt Udfordret</h1>
+        <p class="tagline">Vanvittig videnskab fortalt af fjollede forskere</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="search-section">
+      <div class="search-wrapper">
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Søg i afsnit…"
+          autocomplete="off"
+          spellcheck="false"
+          autofocus
+        />
+        <span id="search-status" class="search-status" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section id="results-section" class="results-section" hidden>
+      <p id="results-count" class="results-count"></p>
+      <ul id="results-list" class="results-list" role="list"></ul>
+    </section>
+
+    <section id="browse-section" class="browse-section">
+      <p id="browse-label" class="browse-label"></p>
+      <ul id="browse-list" class="browse-list" role="list"></ul>
+    </section>
+  </main>
+
+  <!-- Episode detail panel (slides in from right) -->
+  <aside id="episode-panel" class="episode-panel" hidden aria-modal="true" role="dialog" aria-label="Afsnitsdetaljer">
+    <div class="panel-header">
+      <button id="panel-close" class="panel-close" aria-label="Luk">&larr; Tilbage</button>
+    </div>
+    <div id="panel-content" class="panel-content">
+      <!-- Filled by JS -->
+    </div>
+  </aside>
+
+  <div id="panel-overlay" class="panel-overlay" hidden></div>
+
+  <footer>
+    <p>
+      <a href="https://videnskabeligtudfordret.dk" target="_blank" rel="noopener">Videnskabeligt Udfordret</a>
+      &mdash; søgning drevet af afsnitssammenfatninger fra RSS-feed<span id="transcript-note"></span>
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+# Audio files — large, not committed
+data/audio/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# Transcripts — committed intentionally, but exclude local working copies
+# (comment this out if you want to commit transcripts to the repo)
+# data/transcripts/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Local Claude tooling
+.claude/

@@ -1,0 +1,51 @@
+name: Update podcast index
+
+on:
+  schedule:
+    # Every Monday at 08:00 UTC — well after typical weekend episode releases
+    - cron: "0 8 * * 1"
+  push:
+    paths:
+      # Also rebuild when a transcript is added/updated
+      - "data/transcripts/**"
+  workflow_dispatch:
+    # Allow manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch RSS feed
+        run: python scripts/rss_fetch.py
+
+      - name: Build site data
+        run: python scripts/build_site.py
+
+      - name: Validate output
+        run: python scripts/validate.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/episodes_meta.json docs/data/
+          git diff --staged --quiet && echo "No changes to commit." || (
+            git commit -m "chore: update podcast index [skip ci]"
+            git push
+          )
