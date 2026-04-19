@@ -55,6 +55,28 @@ jobs:
         if: steps.gate.outputs.proceed == 'true'
         run: python scripts/rss_fetch.py
 
+      - name: Transcribe new episodes
+        if: steps.gate.outputs.proceed == 'true'
+        env:
+          LEMONFOX_APIKEY: ${{ secrets.LEMONFOX_APIKEY }}
+        run: |
+          if [ -n "$LEMONFOX_APIKEY" ]; then
+            python scripts/transcribe.py --limit 5
+          else
+            echo "LEMONFOX_APIKEY not set — skipping transcription."
+          fi
+
+      - name: Extract episode segments
+        if: steps.gate.outputs.proceed == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            python scripts/extract_segments.py --limit 5
+          else
+            echo "ANTHROPIC_API_KEY not set — skipping segment extraction."
+          fi
+
       - name: Build site data
         if: steps.gate.outputs.proceed == 'true'
         run: python scripts/build_site.py
@@ -68,7 +90,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/episodes_meta.json docs/data/
+          git add data/episodes_meta.json data/transcripts/ data/segments/ docs/data/
           git diff --staged --quiet && echo "No changes to commit." || (
             git commit -m "chore: update podcast index [skip ci]"
             git push

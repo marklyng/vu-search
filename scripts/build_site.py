@@ -17,6 +17,7 @@ Usage:
 Exits 0. Prints a summary with index size.
 """
 
+import gzip
 import json
 import os
 import re
@@ -26,12 +27,14 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 TRANSCRIPTS_DIR = DATA_DIR / "transcripts"
+SEGMENTS_DIR = DATA_DIR / "segments"
 DOCS_DATA_DIR = Path(__file__).parent.parent / "docs" / "data"
 EPISODES_DIR = DOCS_DATA_DIR / "episodes"
 
 META_FILE = DATA_DIR / "episodes_meta.json"
 INDEX_FILE = DOCS_DATA_DIR / "index.json"
 SEARCH_INDEX_FILE = DOCS_DATA_DIR / "search_index.json"
+EPISODE_META_FILE = DOCS_DATA_DIR / "meta.json"
 
 SNIPPET_LENGTH = 200  # characters for snippet in search results
 
@@ -75,19 +78,39 @@ def short_id(full_id: str) -> str:
 
 def load_transcript(ep_id: str) -> str | None:
     """Load transcript text for an episode, or return None if not available."""
-    path = TRANSCRIPTS_DIR / f"{ep_id}.json"
-    if not path.exists():
-        return None
+    gz_path = TRANSCRIPTS_DIR / f"{ep_id}.json.gz"
+    json_path = TRANSCRIPTS_DIR / f"{ep_id}.json"
     try:
-        with open(path, encoding="utf-8") as f:
-            data = json.load(f)
+        if gz_path.exists():
+            data = json.loads(gzip.decompress(gz_path.read_bytes()).decode("utf-8"))
+        elif json_path.exists():
+            data = json.loads(json_path.read_text(encoding="utf-8"))
+        else:
+            return None
         return data.get("text") or None
     except (json.JSONDecodeError, OSError) as e:
         print(f"  WARNING: Could not read transcript for {ep_id}: {e}", file=sys.stderr)
         return None
 
 
-def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
+def load_segments(ep_id: str) -> dict | None:
+    """Load extracted segments (dyrfakt, listener_question) for an episode."""
+    path = SEGMENTS_DIR / f"{ep_id}.json"
+    if not path.exists():
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"  WARNING: Could not read segments for {ep_id}: {e}", file=sys.stderr)
+        return None
+
+
+def build(
+    episodes: list[dict],
+    transcripts: dict[str, str | None],
+    segments: dict[str, dict | None],
+) -> tuple[dict, list[dict]]:
     """
     Build inverted index and slim registry.
 
@@ -95,7 +118,6 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
         search_index: { "index": {token: [sid, ...]}, "meta": {sid: {...}} }
         registry: list of slim episode dicts for index.json
     """
-    # posting_lists[token] = list of (sid, score) tuples
     scores: dict[str, dict[str, float]] = defaultdict(lambda: defaultdict(float))
     meta: dict[str, dict] = {}
     registry: list[dict] = []
@@ -105,8 +127,9 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
         sid = short_id(ep_id)
         title = ep.get("title") or ""
         description = ep.get("description") or ""
-        transcript = load_transcript(ep_id)
+        transcript = transcripts[ep_id]
         has_transcript = transcript is not None
+        seg = segments[ep_id]
 
         # Tokenise each field with its weight
         for token in tokenise(title):
@@ -116,6 +139,11 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
         if transcript:
             for token in tokenise(transcript):
                 scores[token][sid] += 1.0
+        if seg:
+            for token in tokenise(seg.get("dyrfakt") or ""):
+                scores[token][sid] += 4.0
+            for token in tokenise(seg.get("listener_question") or ""):
+                scores[token][sid] += 3.0
 
         snippet = make_snippet(description, transcript)
 
@@ -125,6 +153,8 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
             "date": ep.get("date") or "",
             "snippet": snippet,
             "has_transcript": has_transcript,
+            "dyrfakt": seg.get("dyrfakt") if seg else None,
+            "listener_question": seg.get("listener_question") if seg else None,
             "image_url": ep.get("image_url") or "",
         }
 
@@ -145,15 +175,19 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
         index[token] = sorted_sids
 
     search_index = {"index": index, "meta": meta}
-    return search_index, registry
+    return search_index, meta, registry
 
 
-def write_episode_files(episodes: list[dict]) -> None:
+def write_episode_files(
+    episodes: list[dict],
+    transcripts: dict[str, str | None],
+    segments: dict[str, dict | None],
+) -> None:
     """Write one docs/data/episodes/{id}.json per episode."""
     EPISODES_DIR.mkdir(parents=True, exist_ok=True)
     for ep in episodes:
         ep_id = ep["id"]
-        transcript = load_transcript(ep_id)
+        seg = segments[ep_id]
         out = {
             "id": ep_id,
             "title": ep.get("title") or "",
@@ -164,7 +198,9 @@ def write_episode_files(episodes: list[dict]) -> None:
             "duration": ep.get("duration") or "",
             "episode_number": ep.get("episode_number"),
             "image_url": ep.get("image_url") or "",
-            "transcript": transcript,
+            "transcript": transcripts[ep_id],
+            "dyrfakt": seg.get("dyrfakt") if seg else None,
+            "listener_question": seg.get("listener_question") if seg else None,
         }
         path = EPISODES_DIR / f"{ep_id}.json"
         with open(path, "w", encoding="utf-8") as f:
@@ -187,23 +223,33 @@ def main():
 
     DOCS_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
+    print("  Loading transcripts and segments...")
+    transcripts = {ep["id"]: load_transcript(ep["id"]) for ep in episodes}
+    segments = {ep["id"]: load_segments(ep["id"]) for ep in episodes}
+
     print("  Writing episode files...")
-    write_episode_files(episodes)
+    write_episode_files(episodes, transcripts, segments)
 
     print("  Building search index...")
-    search_index, registry = build(episodes)
+    search_index, episode_meta, registry = build(episodes, transcripts, segments)
 
     print("  Writing search_index.json...")
     with open(SEARCH_INDEX_FILE, "w", encoding="utf-8") as f:
-        json.dump(search_index, f, ensure_ascii=False, separators=(",", ":"))
+        json.dump(search_index["index"], f, ensure_ascii=False, separators=(",", ":"))
+
+    print("  Writing meta.json...")
+    with open(EPISODE_META_FILE, "w", encoding="utf-8") as f:
+        json.dump(episode_meta, f, ensure_ascii=False, separators=(",", ":"))
 
     print("  Writing index.json...")
     with open(INDEX_FILE, "w", encoding="utf-8") as f:
         json.dump(registry, f, ensure_ascii=False, separators=(",", ":"))
 
     # Report
-    n_with_transcript = sum(1 for ep in episodes if load_transcript(ep["id"]) is not None)
+    n_with_transcript = sum(1 for v in transcripts.values() if v is not None)
+    n_with_segments = sum(1 for v in segments.values() if v is not None)
     index_size_kb = SEARCH_INDEX_FILE.stat().st_size / 1024
+    meta_size_kb = EPISODE_META_FILE.stat().st_size / 1024
     ep_dir_size_kb = sum(
         f.stat().st_size for f in EPISODES_DIR.iterdir() if f.is_file()
     ) / 1024
@@ -211,7 +257,9 @@ def main():
     print(f"\nDone.")
     print(f"  {len(episodes)} episodes total")
     print(f"  {n_with_transcript} with transcripts ({len(episodes) - n_with_transcript} description-only)")
+    print(f"  {n_with_segments} with segments (dyrfakt/lytterspørgsmål extracted)")
     print(f"  search_index.json: {index_size_kb:.1f} KB")
+    print(f"  meta.json:         {meta_size_kb:.1f} KB")
     print(f"  episodes/ dir:     {ep_dir_size_kb:.1f} KB total")
     print(f"  Unique tokens in index: {len(search_index['index'])}")
 

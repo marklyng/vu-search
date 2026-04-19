@@ -222,6 +222,40 @@ main {
   line-height: 1.5;
 }
 
+.card-segments {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-segment {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.segment-label {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  margin-right: 0.4rem;
+  white-space: nowrap;
+}
+
+.panel-segment {
+  margin-bottom: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.panel-segment:last-child {
+  margin-bottom: 0;
+}
+
 .no-results {
   color: var(--color-text-muted);
   padding: 1rem 0;
