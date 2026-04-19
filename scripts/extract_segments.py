@@ -24,7 +24,6 @@ Requires:
 """
 
 import argparse
-import asyncio
 import gzip
 import json
 import os
@@ -167,7 +166,6 @@ def extract_segments_sync(
             "model": MODEL,
         }
 
-        SEGMENTS_DIR.mkdir(parents=True, exist_ok=True)
         out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
 
         flags = []
@@ -219,7 +217,6 @@ def main() -> None:
             pending = pending[: args.limit]
         episodes = pending
 
-    n_already = sum(1 for ep in episodes if (SEGMENTS_DIR / f"{ep['id']}.json").exists())
     print(f"Segment extraction")
     print(f"  Model:    {MODEL}")
     print(f"  Episodes: {len(episodes)} pending")
@@ -229,9 +226,10 @@ def main() -> None:
         print("Nothing to do.")
         return
 
+    SEGMENTS_DIR.mkdir(parents=True, exist_ok=True)
     client = anthropic.Anthropic(api_key=api_key)
 
-    done = skipped = errors = 0
+    done = errors = 0
     for ep in episodes:
         result = extract_segments_sync(client, ep)
         if result is None:

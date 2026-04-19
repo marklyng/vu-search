@@ -106,7 +106,11 @@ def load_segments(ep_id: str) -> dict | None:
         return None
 
 
-def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
+def build(
+    episodes: list[dict],
+    transcripts: dict[str, str | None],
+    segments: dict[str, dict | None],
+) -> tuple[dict, list[dict]]:
     """
     Build inverted index and slim registry.
 
@@ -114,7 +118,6 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
         search_index: { "index": {token: [sid, ...]}, "meta": {sid: {...}} }
         registry: list of slim episode dicts for index.json
     """
-    # posting_lists[token] = list of (sid, score) tuples
     scores: dict[str, dict[str, float]] = defaultdict(lambda: defaultdict(float))
     meta: dict[str, dict] = {}
     registry: list[dict] = []
@@ -124,9 +127,9 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
         sid = short_id(ep_id)
         title = ep.get("title") or ""
         description = ep.get("description") or ""
-        transcript = load_transcript(ep_id)
+        transcript = transcripts[ep_id]
         has_transcript = transcript is not None
-        segments = load_segments(ep_id)
+        seg = segments[ep_id]
 
         # Tokenise each field with its weight
         for token in tokenise(title):
@@ -136,10 +139,10 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
         if transcript:
             for token in tokenise(transcript):
                 scores[token][sid] += 1.0
-        if segments:
-            for token in tokenise(segments.get("dyrfakt") or ""):
+        if seg:
+            for token in tokenise(seg.get("dyrfakt") or ""):
                 scores[token][sid] += 4.0
-            for token in tokenise(segments.get("listener_question") or ""):
+            for token in tokenise(seg.get("listener_question") or ""):
                 scores[token][sid] += 3.0
 
         snippet = make_snippet(description, transcript)
@@ -150,8 +153,8 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
             "date": ep.get("date") or "",
             "snippet": snippet,
             "has_transcript": has_transcript,
-            "dyrfakt": segments.get("dyrfakt") if segments else None,
-            "listener_question": segments.get("listener_question") if segments else None,
+            "dyrfakt": seg.get("dyrfakt") if seg else None,
+            "listener_question": seg.get("listener_question") if seg else None,
             "image_url": ep.get("image_url") or "",
         }
 
@@ -175,13 +178,16 @@ def build(episodes: list[dict]) -> tuple[dict, list[dict]]:
     return search_index, meta, registry
 
 
-def write_episode_files(episodes: list[dict]) -> None:
+def write_episode_files(
+    episodes: list[dict],
+    transcripts: dict[str, str | None],
+    segments: dict[str, dict | None],
+) -> None:
     """Write one docs/data/episodes/{id}.json per episode."""
     EPISODES_DIR.mkdir(parents=True, exist_ok=True)
     for ep in episodes:
         ep_id = ep["id"]
-        transcript = load_transcript(ep_id)
-        segments = load_segments(ep_id)
+        seg = segments[ep_id]
         out = {
             "id": ep_id,
             "title": ep.get("title") or "",
@@ -192,9 +198,9 @@ def write_episode_files(episodes: list[dict]) -> None:
             "duration": ep.get("duration") or "",
             "episode_number": ep.get("episode_number"),
             "image_url": ep.get("image_url") or "",
-            "transcript": transcript,
-            "dyrfakt": segments.get("dyrfakt") if segments else None,
-            "listener_question": segments.get("listener_question") if segments else None,
+            "transcript": transcripts[ep_id],
+            "dyrfakt": seg.get("dyrfakt") if seg else None,
+            "listener_question": seg.get("listener_question") if seg else None,
         }
         path = EPISODES_DIR / f"{ep_id}.json"
         with open(path, "w", encoding="utf-8") as f:
@@ -217,11 +223,15 @@ def main():
 
     DOCS_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
+    print("  Loading transcripts and segments...")
+    transcripts = {ep["id"]: load_transcript(ep["id"]) for ep in episodes}
+    segments = {ep["id"]: load_segments(ep["id"]) for ep in episodes}
+
     print("  Writing episode files...")
-    write_episode_files(episodes)
+    write_episode_files(episodes, transcripts, segments)
 
     print("  Building search index...")
-    search_index, episode_meta, registry = build(episodes)
+    search_index, episode_meta, registry = build(episodes, transcripts, segments)
 
     print("  Writing search_index.json...")
     with open(SEARCH_INDEX_FILE, "w", encoding="utf-8") as f:
@@ -236,8 +246,8 @@ def main():
         json.dump(registry, f, ensure_ascii=False, separators=(",", ":"))
 
     # Report
-    n_with_transcript = sum(1 for ep in episodes if load_transcript(ep["id"]) is not None)
-    n_with_segments = sum(1 for ep in episodes if load_segments(ep["id"]) is not None)
+    n_with_transcript = sum(1 for v in transcripts.values() if v is not None)
+    n_with_segments = sum(1 for v in segments.values() if v is not None)
     index_size_kb = SEARCH_INDEX_FILE.stat().st_size / 1024
     meta_size_kb = EPISODE_META_FILE.stat().st_size / 1024
     ep_dir_size_kb = sum(

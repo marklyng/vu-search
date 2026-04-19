@@ -223,8 +223,11 @@ def main() -> None:
         if args.oldest_first:
             episodes = list(reversed(episodes))
         if args.limit:
-            # Skip already-transcribed when applying limit, so --limit N means "N new transcriptions"
-            pending = [ep for ep in episodes if not (TRANSCRIPTS_DIR / f"{ep['id']}.json").exists()]
+            pending = [
+                ep for ep in episodes
+                if not (TRANSCRIPTS_DIR / f"{ep['id']}.json.gz").exists()
+                and not (TRANSCRIPTS_DIR / f"{ep['id']}.json").exists()
+            ]
             episodes = pending[: args.limit]
 
     endpoint = NON_EU_ENDPOINT if args.non_eu else EU_ENDPOINT
@@ -232,7 +235,9 @@ def main() -> None:
     speaker_labels = not args.no_speaker_labels
 
     n_already_done = sum(
-        1 for ep in episodes if (TRANSCRIPTS_DIR / f"{ep['id']}.json").exists()
+        1 for ep in episodes
+        if (TRANSCRIPTS_DIR / f"{ep['id']}.json.gz").exists()
+        or (TRANSCRIPTS_DIR / f"{ep['id']}.json").exists()
     )
     n_pending = len(episodes) - n_already_done
 
