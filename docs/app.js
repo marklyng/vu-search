@@ -4,8 +4,10 @@
  * Loads docs/data/search_index.json once on startup, then searches entirely
  * in-memory. No external libraries required.
  *
- * Search index format:
- *   { index: { token: [short_id, ...] }, meta: { short_id: { id, title, date, snippet, has_transcript } } }
+ * Search index format (search_index.json):
+ *   { token: [short_id, ...] }
+ * Episode meta format (meta.json):
+ *   { short_id: { id, title, date, snippet, has_transcript, dyrfakt, listener_question, image_url } }
  *
  * Episode detail format (fetched on demand):
  *   { id, title, date, audio_url, episode_url, description, duration, transcript }
@@ -15,7 +17,8 @@
 
 // ─── State ────────────────────────────────────────────────────────────────────
 
-let searchIndex = null;   // { index, meta }
+let searchIndex = null;   // token → [sid, ...] (search_index.json)
+let episodeMeta = null;   // sid → { id, title, ... } (meta.json)
 let registry = null;      // array from index.json (slim list for browse)
 let debounceTimer = null;
 
@@ -41,15 +44,17 @@ async function init() {
   searchStatus.textContent = "Indlæser afsnit…";
 
   try {
-    const [idxResp, regResp] = await Promise.all([
+    const [idxResp, metaResp, regResp] = await Promise.all([
       fetch("data/search_index.json"),
+      fetch("data/meta.json"),
       fetch("data/index.json"),
     ]);
 
     if (!idxResp.ok) throw new Error(`search_index.json: ${idxResp.status}`);
+    if (!metaResp.ok) throw new Error(`meta.json: ${metaResp.status}`);
     if (!regResp.ok) throw new Error(`index.json: ${regResp.status}`);
 
-    [searchIndex, registry] = await Promise.all([idxResp.json(), regResp.json()]);
+    [searchIndex, episodeMeta, registry] = await Promise.all([idxResp.json(), metaResp.json(), regResp.json()]);
 
     const total = registry.length;
     const withTranscript = registry.filter(e => e.has_transcript).length;
@@ -59,7 +64,7 @@ async function init() {
 
     if (withTranscript > 0) {
       transcriptNote.textContent =
-        ` + transskriptioner for ${withTranscript} af ${total} afsnit`;
+        ` + transkriberede for ${withTranscript} af ${total} afsnit`;
     }
 
     renderBrowse(registry.slice(0, 20));
@@ -178,12 +183,13 @@ function getPostingList(token, index) {
  * Returns array of { sid, score, meta } sorted by score desc.
  */
 function search(query) {
-  if (!searchIndex) return [];
+  if (!searchIndex || !episodeMeta) return [];
 
   const tokens = tokenise(query);
   if (tokens.length === 0) return [];
 
-  const { index, meta } = searchIndex;
+  const index = searchIndex;
+  const meta = episodeMeta;
 
   // Accumulate scores across all tokens (OR semantics with scoring)
   const scores = {};
@@ -292,10 +298,15 @@ function renderResults(results, query) {
       <div class="card-body">
         <div class="card-header">
           <span class="card-title">${highlight(meta.title, query)}</span>
-          ${meta.has_transcript ? '<span class="badge badge-transcript" title="Transskription tilgængelig">Transskription</span>' : ""}
+          ${meta.has_transcript ? '<span class="badge badge-transcript" title="Transkriberet tilgængelig">Transkriberet</span>' : ""}
         </div>
         <div class="card-date">${formatDate(meta.date)}</div>
         <div class="card-snippet">${snippetHtml}</div>
+        ${meta.dyrfakt || meta.listener_question ? `
+        <div class="card-segments">
+          ${meta.dyrfakt ? `<div class="card-segment"><span class="segment-label">Dyrefact</span>${highlight(meta.dyrfakt, query)}</div>` : ""}
+          ${meta.listener_question ? `<div class="card-segment"><span class="segment-label">Lytterspørgsmål</span>${highlight(meta.listener_question, query)}</div>` : ""}
+        </div>` : ""}
       </div>
     `;
     li.addEventListener("click", () => openEpisode(meta.id, meta.title));
@@ -320,7 +331,7 @@ function renderBrowse(episodes) {
       <div class="card-body">
         <div class="card-header">
           <span class="card-title">${escHtml(ep.title)}</span>
-          ${ep.has_transcript ? '<span class="badge badge-transcript">Transskription</span>' : ""}
+          ${ep.has_transcript ? '<span class="badge badge-transcript">Transkriberet</span>' : ""}
         </div>
         <div class="card-date">${formatDate(ep.date)}${ep.duration ? " &middot; " + escHtml(ep.duration) : ""}</div>
       </div>
@@ -361,19 +372,21 @@ function renderPanel(ep) {
 
   const descHtml = ep.description
     ? `<section class="panel-section">
-        <h3>Sammenfatning</h3>
+        <h3>Beskrivelse</h3>
         <p>${escHtml(ep.description)}</p>
        </section>`
     : "";
 
-  const transcriptHtml = ep.transcript
-    ? `<section class="panel-section panel-transcript">
-        <h3>Transskription</h3>
-        <p>${escHtml(ep.transcript.slice(0, 2000))}${ep.transcript.length > 2000 ? "…" : ""}</p>
+  const segmentsHtml = (ep.dyrfakt || ep.listener_question)
+    ? `<section class="panel-section">
+        ${ep.dyrfakt ? `<div class="panel-segment"><span class="segment-label">Dyrefact</span>${escHtml(ep.dyrfakt)}</div>` : ""}
+        ${ep.listener_question ? `<div class="panel-segment"><span class="segment-label">Lytterspørgsmål</span>${escHtml(ep.listener_question)}</div>` : ""}
        </section>`
-    : `<section class="panel-section">
-        <p class="no-transcript">Transskription er ikke tilgængelig for dette afsnit endnu.</p>
-       </section>`;
+    : "";
+
+  const transcriptHtml = ep.transcript
+    ? `<section class="panel-section"><span class="badge badge-transcript">Transkriberet</span></section>`
+    : "";
 
   panelContent.innerHTML = `
     ${ep.image_url ? `<img class="panel-artwork" src="${escHtml(ep.image_url)}" alt="">` : ""}
@@ -384,6 +397,7 @@ function renderPanel(ep) {
     </div>
     <div class="panel-actions">${listenLink}</div>
     ${descHtml}
+    ${segmentsHtml}
     ${transcriptHtml}
   `;
 }

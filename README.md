@@ -2,8 +2,8 @@
 
 Static, fully automated search site for [Videnskabeligt Udfordret](https://videnskabeligtudfordret.dk).
 
-**Live site**: served from `docs/` via GitHub Pages.  
-**Updates**: runs automatically every Monday via GitHub Actions.
+**Live site**: [soeg.videnskabeligtudfordret.dk](https://soeg.videnskabeligtudfordret.dk)  
+**Updates**: bi-weekly via GitHub Actions (every other Tuesday at 01:00 UTC)
 
 ---
 
@@ -13,17 +13,25 @@ Static, fully automated search site for [Videnskabeligt Udfordret](https://viden
 RSS feed ──► rss_fetch.py ──► data/episodes_meta.json
                                        │
               data/transcripts/ ───────┤
+              data/segments/    ───────┤
                                        ▼
                             build_site.py ──► docs/data/
-                                                  ├── search_index.json
-                                                  ├── index.json
-                                                  └── episodes/{id}.json
+                                                  ├── search_index.json  (token → episode map)
+                                                  ├── meta.json          (per-episode metadata)
+                                                  ├── index.json         (slim episode list)
+                                                  └── episodes/{id}.json (full episode data)
 ```
 
-The site searches on:
-- **Episode title** (strongest signal)
-- **Episode description** from RSS (cleaned of boilerplate)
-- **Full transcript** (when available — greatly improves recall)
+The site searches across:
+- **Episode title** (weight 3×)
+- **Episode description** from RSS (weight 2×)
+- **Dyrefact** — animal fact segment (weight 4×)
+- **Lytterspørgsmål** — listener question segment (weight 3×)
+- **Full transcript** (weight 1×, when available)
+
+Search is entirely client-side. The inverted index is split into two files loaded in parallel:
+`search_index.json` (~945 KB gzipped) holds the token map; `meta.json` (~64 KB gzipped) holds
+episode metadata and renders immediately on load.
 
 ---
 
@@ -41,83 +49,117 @@ pip install -r requirements.txt
 python scripts/rss_fetch.py
 ```
 
-This writes `data/episodes_meta.json` with all 400+ episodes.
+Writes `data/episodes_meta.json` with all 400+ episodes.
 
-### 3. Build the site data
+### 3. Transcribe episodes (optional but recommended)
+
+Requires a [Lemonfox.ai](https://lemonfox.ai) API key in `.env` as `LEMONFOX_APIKEY`.
+
+```bash
+# Full backlog (newest-first, ~9 hours wall-clock at 5 concurrent)
+python scripts/transcribe.py --no-speaker-labels
+
+# Test a single episode first
+python scripts/transcribe.py --episode-id <id> --no-speaker-labels
+
+# Limit to N new episodes (used by CI)
+python scripts/transcribe.py --limit 5 --no-speaker-labels
+```
+
+Transcripts are stored as gzip-compressed JSON in `data/transcripts/{id}.json.gz`.
+The script is resume-safe — already-transcribed episodes are skipped.
+
+After transcribing a large batch, compress any remaining uncompressed files:
+
+```bash
+python scripts/compress_transcripts.py
+```
+
+### 4. Extract Dyrefact and Lytterspørgsmål segments
+
+Requires an Anthropic API key in `.env` as `ANTHROPIC_API_KEY`.
+
+```bash
+python scripts/extract_segments.py          # all pending episodes
+python scripts/extract_segments.py --limit 5
+python scripts/extract_segments.py --episode-id <id>
+```
+
+Uses `claude-haiku-4-5` with prompt caching. Rate-limited to 40 req/min (1.5 s delay between calls).
+Results are written to `data/segments/{id}.json`.
+
+### 5. Build the site
 
 ```bash
 python scripts/build_site.py
 ```
 
-This generates everything in `docs/data/`. The site is now functional.
+Generates everything under `docs/data/`. The site is now functional.
 
-### 4. Open locally
-
-Open `docs/index.html` in a browser. No server needed — it works as a local file.
-
-> **Note**: fetching episode detail (`data/episodes/{id}.json`) requires a local
-> HTTP server when running locally, due to browser fetch() restrictions on `file://`.
-> Use `python -m http.server 8000` from `docs/` or the VS Code Live Server extension.
-
----
-
-## Adding transcripts
-
-Each transcript is a JSON file placed in `data/transcripts/`:
-
-**Filename**: `data/transcripts/{episode_id}.json`  
-**Episode ID**: the Acast GUID from `data/episodes_meta.json` (the `"id"` field)
-
-**Format**:
-```json
-{
-  "text": "Full transcript as plain text. Can be as long as needed."
-}
-```
-
-After adding transcript files, run `build_site.py` (or push to GitHub to trigger the
-automated workflow):
+### 6. Open locally
 
 ```bash
-python scripts/build_site.py
+cd docs && python -m http.server 8000
 ```
 
----
-
-## Finding episode IDs
-
-```bash
-# List all episode IDs and titles
-python -c "
-import json
-episodes = json.load(open('data/episodes_meta.json'))
-for ep in episodes:
-    print(ep['id'], ep['title'])
-"
-```
-
-Or open `data/episodes_meta.json` directly — it's sorted newest-first.
+Then open `http://localhost:8000`. (`file://` won't work due to browser `fetch()` restrictions.)
 
 ---
 
 ## Automated updates (GitHub Actions)
 
-The workflow in `.github/workflows/update.yml` runs every Monday at 08:00 UTC and:
+The workflow in `.github/workflows/update.yml` runs bi-weekly (every other Tuesday at 01:00 UTC) and:
+
 1. Fetches the RSS feed for new episodes
-2. Rebuilds `docs/data/`
-3. Commits and pushes any changes
+2. Transcribes up to 5 new episodes (requires `LEMONFOX_APIKEY` secret)
+3. Extracts segments from up to 5 new transcripts (requires `ANTHROPIC_API_KEY` secret)
+4. Rebuilds `docs/data/`
+5. Commits and pushes any changes
 
-**Trigger manually**: go to Actions → "Update podcast index" → "Run workflow".
+**Manual trigger**: Actions → "Update podcast index" → "Run workflow".
 
-**When you add transcripts**: push the files to GitHub. The workflow is also triggered
-by any push to `data/transcripts/**`.
+**Transcript push trigger**: pushing any file to `data/transcripts/**` also fires the workflow,
+which re-extracts segments and rebuilds the site.
 
-### GitHub Pages setup
+### Required GitHub secrets
 
-1. Push this repo to GitHub
-2. Go to Settings → Pages
-3. Set source: **Deploy from a branch**, branch: `main`, folder: `/docs`
-4. The site will be live at `https://{username}.github.io/{repo-name}/`
+| Secret | Purpose |
+|---|---|
+| `LEMONFOX_APIKEY` | Transcription via Lemonfox.ai EU endpoint |
+| `ANTHROPIC_API_KEY` | Segment extraction via Claude Haiku |
+
+---
+
+## File structure
+
+```
+/vu_search
+  /.github/workflows/
+    update.yml                  # Bi-weekly CI pipeline
+  /scripts/
+    rss_fetch.py                # Fetch RSS → data/episodes_meta.json
+    transcribe.py               # Transcribe audio → data/transcripts/{id}.json.gz
+    compress_transcripts.py     # Migrate .json → .json.gz (one-off)
+    extract_segments.py         # Extract dyrefact/lytterspørgsmål → data/segments/{id}.json
+    build_site.py               # Build docs/data/ from all sources
+    validate.py                 # Coverage report and sanity checks
+  /data/
+    episodes_meta.json          # RSS-derived episode list (committed)
+    /transcripts/               # {id}.json.gz compressed transcript files
+    /segments/                  # {id}.json extracted segment files
+  /docs/                        # GitHub Pages root
+    index.html
+    app.js
+    style.css
+    /data/
+      search_index.json         # Token → episode inverted index
+      meta.json                 # Per-episode metadata (title, snippet, dyrefact, etc.)
+      index.json                # Slim episode list for browse view
+      /episodes/                # Full episode JSON (fetched on demand)
+  requirements.txt
+  .gitignore
+  README.md
+```
 
 ---
 
@@ -127,32 +169,4 @@ by any push to `data/transcripts/**`.
 python scripts/validate.py
 ```
 
-Reports transcript coverage, checks for missing or corrupted files.
-
----
-
-## File structure
-
-```
-/vu_search
-  /.github/workflows/
-    update.yml          # Automated weekly update
-  /scripts/
-    rss_fetch.py        # Fetch RSS → data/episodes_meta.json
-    build_site.py       # Build docs/data/ from RSS + transcripts
-    validate.py         # Sanity checks and coverage report
-  /data/
-    episodes_meta.json  # RSS-derived episode list (committed)
-    /transcripts/       # {id}.json transcript files (you add these)
-  /docs/                # GitHub Pages root
-    index.html
-    app.js
-    style.css
-    /data/
-      index.json        # Slim episode list
-      search_index.json # Inverted search index
-      /episodes/        # Full episode data (generated)
-  requirements.txt
-  .gitignore
-  README.md
-```
+Reports transcript and segment coverage, checks for missing or corrupted files.
