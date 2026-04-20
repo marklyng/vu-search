@@ -39,8 +39,7 @@ function showTooltip(html, x, y) {
 }
 
 function hideTooltip() {
-  const t = getTooltip();
-  t.hidden = true;
+  getTooltip().hidden = true;
 }
 
 function lerpColor(hex1, hex2, t) {
@@ -72,11 +71,11 @@ const FILTH_COLORS = {
 };
 
 const CAT_COLORS = {
-  pattedyr: "#2563c8",
-  fugl:     "#0891b2",
-  insekt:   "#16a34a",
-  reptil:   "#ca8a04",
-  fisk:     "#7c3aed",
+  pattedyr: "#5ebfc6",
+  fugl:     "#ff3d5a",
+  insekt:   "#2a9d8f",
+  reptil:   "#f4a261",
+  fisk:     "#e9c46a",
   andet:    "#9ca3af",
 };
 
@@ -95,108 +94,6 @@ function svgEl(tag, attrs) {
   return el;
 }
 
-// ── Seismograph ───────────────────────────────────────────────────────────────
-
-function renderSeismograph(data) {
-  const container = document.getElementById("seismograph-container");
-  if (!container) return;
-  container.innerHTML = "";
-
-  const eps = data.seismograph;
-  if (!eps.length) { container.textContent = "Ingen data."; return; }
-
-  const BAR_W = 4, BAR_GAP = 2, STEP = BAR_W + BAR_GAP;
-  const H = 220, LABEL_H = 18, AXIS_H = 16;
-  const CHART_H = H - LABEL_H - AXIS_H;
-  const W = Math.max(600, eps.length * STEP + 40);
-
-  const maxFilth = Math.max(...eps.map((e) => e.total_filth), 1);
-
-  const svg = svgEl("svg", {
-    width: W, height: H,
-    "aria-label": "Filth score per afsnit",
-    role: "img",
-  });
-
-  // baseline
-  svg.appendChild(svgEl("line", {
-    x1: 20, y1: LABEL_H + CHART_H,
-    x2: W - 20, y2: LABEL_H + CHART_H,
-    stroke: "#e2ddd8", "stroke-width": 1,
-  }));
-
-  // year ticks
-  const years = {};
-  eps.forEach((ep, i) => {
-    const y = (ep.date || "").slice(0, 4);
-    if (y && !years[y]) years[y] = i;
-  });
-  for (const [yr, idx] of Object.entries(years)) {
-    const x = 20 + idx * STEP;
-    svg.appendChild(svgEl("line", {
-      x1: x, y1: LABEL_H + CHART_H,
-      x2: x, y2: LABEL_H + CHART_H + AXIS_H - 2,
-      stroke: "#c8c0b8", "stroke-width": 1,
-    }));
-    const t = svgEl("text", {
-      x: x + 2, y: H - 2,
-      fill: "#9ca3af",
-      "font-size": 10,
-      "font-family": "inherit",
-    });
-    t.textContent = yr;
-    svg.appendChild(t);
-  }
-
-  // top 5 labeled spikes
-  const top5 = [...eps]
-    .sort((a, b) => b.total_filth - a.total_filth)
-    .slice(0, 5)
-    .map((e) => e.sid);
-
-  eps.forEach((ep, i) => {
-    const x = 20 + i * STEP + BAR_W / 2;
-    const barH = Math.max(2, (ep.total_filth / maxFilth) * CHART_H * 0.9);
-    const y1 = LABEL_H + CHART_H - barH;
-    const y2 = LABEL_H + CHART_H;
-    const col = FILTH_COLORS[ep.dominant] || FILTH_COLORS.none;
-
-    const line = svgEl("line", {
-      x1: x, y1, x2: x, y2,
-      stroke: col, "stroke-width": BAR_W,
-      "stroke-linecap": "round",
-      style: "cursor:pointer",
-    });
-
-    line.addEventListener("mousemove", (ev) => {
-      const rows = Object.entries(ep.filth)
-        .filter(([, v]) => v > 0)
-        .sort(([, a], [, b]) => b - a)
-        .map(([w, c]) => `<span style="color:${FILTH_COLORS[w] || '#fff'}">${escHtml(w)}</span>: ${c}`)
-        .join("<br>");
-      showTooltip(
-        `<strong>${escHtml(ep.title)}</strong>${rows ? "<br>" + rows : "<br>ingen hits"}`,
-        ev.clientX, ev.clientY
-      );
-    });
-    line.addEventListener("mouseleave", hideTooltip);
-    svg.appendChild(line);
-
-    if (top5.includes(ep.sid)) {
-      const label = svgEl("text", {
-        x: x + 3, y: y1 - 3,
-        fill: col, "font-size": 9, "font-family": "inherit",
-        transform: `rotate(-45, ${x + 3}, ${y1 - 3})`,
-        style: "pointer-events:none",
-      });
-      label.textContent = ep.ep != null ? `#${ep.ep}` : "";
-      svg.appendChild(label);
-    }
-  });
-
-  container.appendChild(svg);
-}
-
 // ── Bestiary ──────────────────────────────────────────────────────────────────
 
 function renderBestiary(data) {
@@ -210,16 +107,21 @@ function renderBestiary(data) {
   const animals = data.bestiary;
   if (!animals.length) { grid.textContent = "Ingen data."; return; }
 
-  // legend
+  // Category filter legend
   const legend = document.createElement("div");
   legend.className = "bestiary-legend";
   legend.setAttribute("role", "group");
   const cats = [...new Set(animals.map((a) => a.category))];
   const activeFilters = new Set(cats);
 
-  function applyFilter() {
-    grid.querySelectorAll(".bestiary-card").forEach((card) => {
-      card.hidden = !activeFilters.has(card.dataset.category);
+  const INITIAL_VISIBLE = 15;
+  let expanded = false;
+
+  function applyVisibility() {
+    Array.from(grid.querySelectorAll(".bestiary-card")).forEach((card, i) => {
+      const catOk = activeFilters.has(card.dataset.category);
+      const showOk = expanded || i < INITIAL_VISIBLE;
+      card.hidden = !(catOk && showOk);
     });
     legend.querySelectorAll(".legend-chip").forEach((chip) => {
       chip.classList.toggle("legend-chip--inactive", !activeFilters.has(chip.dataset.category));
@@ -241,7 +143,7 @@ function renderBestiary(data) {
         activeFilters.add(cat);
         chip.setAttribute("aria-pressed", "true");
       }
-      applyFilter();
+      applyVisibility();
     });
     legend.appendChild(chip);
   }
@@ -294,23 +196,43 @@ function renderBestiary(data) {
       <div class="bestiary-excerpt">${escHtml(excerpt.slice(0, 100))}</div>
     `;
 
-    function toggle() {
-      if (activeCard === card) {
-        closeDetail();
-      } else {
-        if (activeCard) activeCard.classList.remove("bestiary-card--active");
-        activeCard = card;
-        card.classList.add("bestiary-card--active");
-        openDetail(animal);
-      }
+    function toggle(card, animal) {
+      return function () {
+        if (activeCard === card) {
+          closeDetail();
+        } else {
+          if (activeCard) activeCard.classList.remove("bestiary-card--active");
+          activeCard = card;
+          card.classList.add("bestiary-card--active");
+          openDetail(animal);
+        }
+      };
     }
 
-    card.addEventListener("click", toggle);
+    const handler = toggle(card, animal);
+    card.addEventListener("click", handler);
     card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); }
     });
 
     grid.appendChild(card);
+  }
+
+  // Progressive disclosure: show top 15 by default
+  applyVisibility();
+
+  if (animals.length > INITIAL_VISIBLE) {
+    const btn = document.createElement("button");
+    btn.className = "bestiary-show-more";
+    btn.textContent = `Vis alle (${animals.length} dyr) ▾`;
+    btn.addEventListener("click", () => {
+      expanded = !expanded;
+      applyVisibility();
+      btn.textContent = expanded
+        ? "Vis færre ▴"
+        : `Vis alle (${animals.length} dyr) ▾`;
+    });
+    grid.after(btn);
   }
 }
 
@@ -330,37 +252,48 @@ function renderScatter(data) {
   const CW = VW - MARGIN.left - MARGIN.right;
   const CH = VH - MARGIN.top - MARGIN.bottom;
 
-  const maxSci = Math.max(...pts.map((p) => p.science_score), 1);
-  const maxFil = Math.max(...pts.map((p) => p.scatological_score), 1);
+  // Use 95th percentile to prevent two outliers from compressing the bulk of the data
+  function pct(arr, p) {
+    const s = [...arr].sort((a, b) => a - b);
+    return s[Math.min(Math.floor(s.length * p), s.length - 1)] || 1;
+  }
+  const maxSci = Math.max(pct(pts.map((p) => p.science_score), 0.95), 1);
+  const maxFil = Math.max(pct(pts.map((p) => p.scatological_score), 0.95), 1);
 
-  const medSci = [...pts].sort((a, b) => a.science_score - b.science_score)[Math.floor(pts.length / 2)].science_score;
-  const medFil = [...pts].sort((a, b) => a.scatological_score - b.scatological_score)[Math.floor(pts.length / 2)].scatological_score;
-
-  function px(v) { return (v / maxSci) * CW; }
-  function py(v) { return CH - (v / maxFil) * CH; }
+  // Clip outliers to chart edge so they remain visible
+  function px(v) { return Math.min(CW, Math.max(0, (v / maxSci) * CW)); }
+  function py(v) { return Math.max(0, Math.min(CH, CH - (v / maxFil) * CH)); }
 
   const svg = svgEl("svg", {
     viewBox: `0 0 ${VW} ${VH}`,
     width: "100%",
     preserveAspectRatio: "xMidYMid meet",
-    "aria-label": "Spredningsplot: lort vs. videnskab",
+    "aria-label": "Spredningsplot: smut vs. videnskab",
     role: "img",
   });
 
   const g = svgEl("g", { transform: `translate(${MARGIN.left},${MARGIN.top})` });
   svg.appendChild(g);
 
-  // quadrant dividers
-  const qx = px(medSci), qy = py(medFil);
-  g.appendChild(svgEl("line", { x1: qx, y1: 0, x2: qx, y2: CH, stroke: "#d4cec8", "stroke-width": 1, "stroke-dasharray": "4,3" }));
-  g.appendChild(svgEl("line", { x1: 0, y1: qy, x2: CW, y2: qy, stroke: "#d4cec8", "stroke-width": 1, "stroke-dasharray": "4,3" }));
+  // Equal-sized quadrants at midpoint of axis range
+  const qx = CW / 2, qy = CH / 2;
+  const QBG = [
+    [qx,  0,   CW - qx, qy,       "#f7c696", 0.14],  // top-right:    Beskidt videnskab (warm peach)
+    [qx,  qy,  CW - qx, CH - qy,  "#5ebfc6", 0.07],  // bottom-right: Ren videnskab (teal)
+    [0,   0,   qx,      qy,       "#ff3d5a", 0.07],  // top-left:     Rent lort (coral)
+  ];
+  for (const [x, y, w, h, fill, opacity] of QBG) {
+    g.appendChild(svgEl("rect", { x, y, width: w, height: h, fill, "fill-opacity": opacity }));
+  }
+  g.appendChild(svgEl("line", { x1: qx, y1: 0, x2: qx, y2: CH, stroke: "#c8c0b8", "stroke-width": 1, "stroke-dasharray": "4,3" }));
+  g.appendChild(svgEl("line", { x1: 0, y1: qy, x2: CW, y2: qy, stroke: "#c8c0b8", "stroke-width": 1, "stroke-dasharray": "4,3" }));
 
-  // quadrant labels
+  // Quadrant labels (corrected positions)
   const QL = [
-    [CW * 0.75, 14, "Beskidt videnskab"],
-    [CW * 0.75, CH - 8, "Rent lort"],
-    [CW * 0.25, 14, "Ren videnskab"],
-    [CW * 0.25, CH - 8, "Videnskabeligt Udfordret"],
+    [CW * 0.75, 14,       "Beskidt videnskab"],   // top-right:    high sci, high smut ✓
+    [CW * 0.75, CH - 8,   "Ren videnskab"],        // bottom-right: high sci, low smut ✓
+    [CW * 0.25, 14,       "Rent lort"],             // top-left:     low sci, high smut ✓
+    [CW * 0.25, CH - 8,   "Videnskabeligt Udfordret"], // bottom-left: low sci, low smut ✓
   ];
   for (const [x, y, txt] of QL) {
     const t = svgEl("text", { x, y, fill: "#b8b0a8", "font-size": 10, "font-family": "inherit", "text-anchor": "middle" });
@@ -368,7 +301,7 @@ function renderScatter(data) {
     g.appendChild(t);
   }
 
-  // axes
+  // Axes
   g.appendChild(svgEl("line", { x1: 0, y1: CH, x2: CW, y2: CH, stroke: "#c8c0b8", "stroke-width": 1 }));
   g.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: CH, stroke: "#c8c0b8", "stroke-width": 1 }));
   const axisStyle = { fill: "#9ca3af", "font-size": 11, "font-family": "inherit" };
@@ -376,38 +309,46 @@ function renderScatter(data) {
   xLabel.textContent = "Videnskabelig intensitet →";
   g.appendChild(xLabel);
   const yLabel = svgEl("text", { ...axisStyle, x: -CH / 2, y: -36, "text-anchor": "middle", transform: "rotate(-90)" });
-  yLabel.textContent = "Skatalogisk intensitet →";
+  yLabel.textContent = "Frække ord →";
   g.appendChild(yLabel);
 
-  // top 8 outliers by combined score
-  const top8 = [...pts]
+  // Top 12 outliers by combined score — labeled with episode number
+  const top12 = [...pts]
     .sort((a, b) => (b.science_score + b.scatological_score) - (a.science_score + a.scatological_score))
-    .slice(0, 8)
+    .slice(0, 12)
     .map((p) => p.sid);
 
   for (const pt of pts) {
     const cx = px(pt.science_score);
     const cy = py(pt.scatological_score);
-    const r = Math.max(4, Math.min(14, Math.sqrt(pt.duration_min) * 1.0));
+    const r = Math.max(3, Math.min(8, Math.sqrt(pt.duration_min) * 0.7));
+    const filthRatio = pt.scatological_score / (pt.science_score + pt.scatological_score + 1);
+    const dotColor = lerpColor("#5ebfc6", "#ff3d5a", filthRatio);
 
     const circle = svgEl("circle", {
       cx, cy, r,
-      fill: "#2563c8",
-      "fill-opacity": 0.55,
-      stroke: "#2563c8",
-      "stroke-width": 0.5,
-      style: "cursor:pointer",
+      fill: dotColor,
+      "fill-opacity": 0.65,
+      stroke: dotColor,
+      "stroke-width": 0.8,
+      style: pt.episode_id ? "cursor:pointer" : "cursor:crosshair",
     });
     circle.addEventListener("mousemove", (ev) => {
       showTooltip(
-        `<strong>${escHtml(pt.title)}</strong><br>Videnskab: ${pt.science_score}<br>Lort: ${pt.scatological_score}<br>${pt.duration_min} min`,
+        `<strong>${escHtml(pt.title)}</strong><br>Videnskabelige ord: ${pt.science_score}<br>Frække ord: ${pt.scatological_score}<br>${pt.duration_min} min`,
         ev.clientX, ev.clientY
       );
     });
     circle.addEventListener("mouseleave", hideTooltip);
+    if (pt.episode_id) {
+      circle.addEventListener("click", () => {
+        hideTooltip();
+        openEpisode(pt.episode_id, pt.title);
+      });
+    }
     g.appendChild(circle);
 
-    if (top8.includes(pt.sid) && pt.ep != null) {
+    if (top12.includes(pt.sid) && pt.ep != null) {
       const lbl = svgEl("text", {
         x: cx + r + 2, y: cy + 4,
         fill: "#6b6560", "font-size": 9, "font-family": "inherit",
@@ -421,113 +362,8 @@ function renderScatter(data) {
   container.appendChild(svg);
 }
 
-// ── Body map ──────────────────────────────────────────────────────────────────
-
-const BODY_ANCHOR = {
-  hjerne:  [200,  52], øje:    [200,  82], næse:  [200, 104], mund:  [200, 120],
-  øre:     [200,  90],
-  bryst:   [200, 178], hjerte: [200, 170], lunge: [200, 195],
-  arm:     [200, 228], hånd:   [200, 308], ryg:   [200, 248],
-  mave:    [200, 262], lever:  [200, 244], nyre:  [200, 270], tarm:  [200, 290],
-  blod:    [200, 215],
-  hud:     [200, 345],
-  ben:     [200, 385], fod:    [200, 448],
-  knogle:  [200, 340],
-};
-
-const BODY_SIDE = {
-  hjerne: "center", øje: "left", næse: "center", mund: "center",
-  øre: "right",
-  bryst: "left", hjerte: "right", lunge: "right",
-  arm: "left", hånd: "left", ryg: "right",
-  mave: "center", lever: "left", nyre: "right", tarm: "center",
-  blod: "right",
-  hud: "right",
-  ben: "left", fod: "center",
-  knogle: "left",
-};
-
-function renderBodyMap(data) {
-  const container = document.getElementById("bodymap-container");
-  if (!container) return;
-  container.innerHTML = "";
-  container.className = "viz-container bodymap-container";
-
-  const counts = data.body_map;
-  const vals = Object.values(counts).filter((v) => v > 0);
-  if (!vals.length) { container.textContent = "Ingen data."; return; }
-  const minV = Math.min(...vals), maxV = Math.max(...vals);
-
-  const VW = 400, VH = 520;
-  const svg = svgEl("svg", {
-    viewBox: `0 0 ${VW} ${VH}`,
-    width: "100%",
-    preserveAspectRatio: "xMidYMid meet",
-    "aria-label": "Kroppens landkort",
-    role: "img",
-  });
-
-  // Abstract human silhouette
-  const SILO_PATH =
-    "M200,20 C210,20 224,28 226,44 C228,60 220,74 200,80 C180,74 172,60 174,44 C176,28 190,20 200,20Z " +
-    "M194,80 C180,82 168,90 164,105 L155,165 L175,165 L178,130 L178,300 L155,460 L175,465 L194,340 L206,340 L225,465 L245,460 L222,300 L222,130 L225,165 L245,165 L236,105 C232,90 220,82 206,80Z " +
-    "M178,130 L145,220 L162,226 L178,165Z " +
-    "M222,130 L255,220 L238,226 L222,165Z";
-
-  const silo = svgEl("path", {
-    d: SILO_PATH,
-    fill: "#e8e3de",
-    stroke: "#d4cec8",
-    "stroke-width": 1,
-  });
-  svg.appendChild(silo);
-
-  // Labels
-  for (const [part, count] of Object.entries(counts)) {
-    if (count === 0) continue;
-    const anchor = BODY_ANCHOR[part];
-    if (!anchor) continue;
-
-    const t = Math.max(0, Math.min(1, (count - minV) / (maxV - minV)));
-    const col = lerpColor("#888077", "#b91c1c", t);
-    const fs = Math.round(9 + Math.log(1 + (count / minV)) * 3);
-    const clampedFs = Math.max(9, Math.min(20, fs));
-
-    const side = BODY_SIDE[part] || "center";
-    const LX = side === "left" ? anchor[0] - 62 : side === "right" ? anchor[0] + 62 : anchor[0];
-    const LY = anchor[1];
-
-    // connector line
-    if (side !== "center") {
-      svg.appendChild(svgEl("line", {
-        x1: anchor[0], y1: anchor[1],
-        x2: LX + (side === "left" ? 40 : -40), y2: LY,
-        stroke: col, "stroke-width": 0.75, "stroke-dasharray": "2,2", opacity: 0.5,
-      }));
-    }
-
-    const lbl = svgEl("text", {
-      x: LX, y: LY + 4,
-      fill: col,
-      "font-size": clampedFs,
-      "font-family": "inherit",
-      "font-weight": t > 0.6 ? 700 : 500,
-      "text-anchor": side === "left" ? "end" : side === "right" ? "start" : "middle",
-      style: "cursor:default",
-    });
-    lbl.textContent = part;
-
-    lbl.addEventListener("mousemove", (ev) => {
-      showTooltip(`<strong>${escHtml(part)}</strong><br>${count.toLocaleString("da")} forekomster`, ev.clientX, ev.clientY);
-    });
-    lbl.addEventListener("mouseleave", hideTooltip);
-    svg.appendChild(lbl);
-  }
-
-  container.appendChild(svg);
-}
-
 // ── Flemming vs. Mark ─────────────────────────────────────────────────────────
+// Tug-of-war rope (knot position = cumulative balance) + cumulative line chart.
 
 function renderHosts(data) {
   const container = document.getElementById("hosts-container");
@@ -537,69 +373,253 @@ function renderHosts(data) {
   const { hosts, totals } = data;
   if (!hosts.length) { container.textContent = "Ingen data."; return; }
 
-  const totalF = totals.flemming, totalM = totals.mark, totalSum = totalF + totalM;
+  const totalF = totals.flemming, totalM = totals.mark;
+  const totalSum = totalF + totalM || 1;
 
-  // summary bar
-  const summary = document.createElement("div");
-  summary.className = "hosts-summary";
-  const pctF = totalSum ? Math.round((totalF / totalSum) * 100) : 50;
-  summary.innerHTML = `
-    <span class="hosts-label-f">Flemming (${totalF.toLocaleString("da")})</span>
-    <div class="tug-bar-outer" role="img" aria-label="Flemming ${pctF}%, Mark ${100 - pctF}%">
-      <div class="tug-bar-flemming" style="width:${pctF}%"></div>
-      <div class="tug-bar-mark" style="width:${100 - pctF}%"></div>
-    </div>
-    <span class="hosts-label-m">Mark (${totalM.toLocaleString("da")})</span>
-  `;
-  container.appendChild(summary);
+  // ── Section A: Tug-of-war rope SVG ──────────────────────────────────────────
+  const TW = 600, TH = 110, KY = 52;
+  const kx = Math.round(60 + (totalF / totalSum) * 480);
 
-  const timeline = document.createElement("div");
-  timeline.className = "hosts-timeline";
+  const tugSvg = svgEl("svg", {
+    viewBox: `0 0 ${TW} ${TH}`,
+    width: "100%",
+    class: "hosts-tug",
+    "aria-label": `Tug-of-war: Flemming ${totalF.toLocaleString("da")} vs Mark ${totalM.toLocaleString("da")}`,
+    role: "img",
+  });
 
-  const maxCount = Math.max(...hosts.map((h) => Math.max(h.flemming, h.mark)), 1);
+  // Left rope (Flemming — blue)
+  tugSvg.appendChild(svgEl("path", {
+    d: `M 60,${KY} Q ${(60 + kx) / 2},${KY + 12} ${kx},${KY}`,
+    fill: "none", stroke: "#2563c8", "stroke-width": 5, "stroke-linecap": "round",
+  }));
+  // Right rope (Mark — red)
+  tugSvg.appendChild(svgEl("path", {
+    d: `M ${kx},${KY} Q ${(kx + 540) / 2},${KY + 12} 540,${KY}`,
+    fill: "none", stroke: "#c2410c", "stroke-width": 5, "stroke-linecap": "round",
+  }));
+  // Knot
+  tugSvg.appendChild(svgEl("circle", {
+    cx: kx, cy: KY, r: 9,
+    fill: "#f5f0eb", stroke: "#4a4440", "stroke-width": 2.5,
+  }));
 
-  for (const h of hosts) {
-    const row = document.createElement("div");
-    row.className = "hosts-row";
-    const winnerF = h.flemming >= h.mark;
-
-    const label = document.createElement("div");
-    label.className = "hosts-row-label";
-    label.title = h.title;
-    label.textContent = h.ep != null ? `#${h.ep}` : "";
-
-    const bars = document.createElement("div");
-    bars.className = "hosts-bars";
-
-    const barF = document.createElement("div");
-    barF.className = "hosts-bar-f";
-    barF.style.width = `${(h.flemming / maxCount) * 48}%`;
-    barF.style.opacity = winnerF ? "1" : "0.4";
-
-    const barM = document.createElement("div");
-    barM.className = "hosts-bar-m";
-    barM.style.width = `${(h.mark / maxCount) * 48}%`;
-    barM.style.opacity = !winnerF ? "1" : "0.4";
-
-    bars.appendChild(barF);
-    bars.appendChild(barM);
-    row.appendChild(label);
-    row.appendChild(bars);
-
-    row.addEventListener("mousemove", (ev) => {
-      showTooltip(
-        `<strong>${escHtml(h.title)}</strong><br><span style="color:#2563c8">Flemming: ${h.flemming}</span><br><span style="color:#c2410c">Mark: ${h.mark}</span>`,
-        ev.clientX, ev.clientY
-      );
-    });
-    row.addEventListener("mouseleave", hideTooltip);
-
-    timeline.appendChild(row);
+  // Name labels
+  function tugText(x, anchor, name, count, color) {
+    const nm = svgEl("text", { x, y: 28, fill: color, "font-size": 14, "font-weight": 700, "font-family": "inherit", "text-anchor": anchor });
+    nm.textContent = name;
+    tugSvg.appendChild(nm);
+    const ct = svgEl("text", { x, y: 80, fill: color, "font-size": 10, "font-family": "inherit", "text-anchor": anchor });
+    ct.textContent = count.toLocaleString("da") + " nævnelser";
+    tugSvg.appendChild(ct);
   }
-  container.appendChild(timeline);
+  tugText(30, "start", "Flemming", totalF, "#2563c8");
+  tugText(570, "end", "Mark", totalM, "#c2410c");
+
+  // Winner annotation
+  const diff = totalF - totalM;
+  if (diff !== 0) {
+    const winner = diff > 0 ? "Flemming" : "Mark";
+    const winPct = Math.round(100 * Math.max(totalF, totalM) / totalSum);
+    const ann = svgEl("text", { x: 300, y: TH - 6, fill: "#9ca3af", "font-size": 10, "font-family": "inherit", "text-anchor": "middle" });
+    ann.textContent = `${winner} vinder med ${winPct}%`;
+    tugSvg.appendChild(ann);
+  }
+
+  container.appendChild(tugSvg);
+
+  // ── Section B: Cumulative line chart ─────────────────────────────────────────
+  const subtitle = document.createElement("p");
+  subtitle.className = "viz-subtitle";
+  subtitle.style.marginTop = "1.5rem";
+  subtitle.textContent = "Kumulativ forskel i antal nævnelser per afsnit";
+  container.appendChild(subtitle);
+
+  const CVW = 600, CVH = 200;
+  const M = { top: 20, right: 20, bottom: 28, left: 50 };
+  const CW = CVW - M.left - M.right;
+  const CH = CVH - M.top - M.bottom;
+  const BASE_Y = CH / 2;
+
+  // Sort chronologically (oldest first) for the cumulative chart
+  const hostsChron = [...hosts].sort((a, b) => (a.ep || 0) - (b.ep || 0));
+
+  // Build cumulative diff
+  const cumDiffs = [];
+  let running = 0;
+  for (const h of hostsChron) {
+    running += h.flemming - h.mark;
+    cumDiffs.push(running);
+  }
+  const maxAbs = Math.max(
+    Math.abs(Math.min(...cumDiffs)),
+    Math.abs(Math.max(...cumDiffs)),
+    1
+  );
+  const xStep = CW / Math.max(hostsChron.length - 1, 1);
+
+  const cumSvg = svgEl("svg", {
+    viewBox: `0 0 ${CVW} ${CVH}`,
+    width: "100%",
+    "aria-label": "Kumulativ Flemming vs Mark per afsnit",
+    role: "img",
+    style: "cursor:crosshair",
+  });
+  const g = svgEl("g", { transform: `translate(${M.left},${M.top})` });
+  cumSvg.appendChild(g);
+
+  // Zero baseline
+  g.appendChild(svgEl("line", {
+    x1: 0, y1: BASE_Y, x2: CW, y2: BASE_Y,
+    stroke: "#c8c0b8", "stroke-width": 1, "stroke-dasharray": "3,3",
+  }));
+
+  // Year tick marks
+  const seenYrs = new Set();
+  hostsChron.forEach((h, i) => {
+    const yr = (h.date || "").slice(0, 4);
+    if (!yr || seenYrs.has(yr)) return;
+    seenYrs.add(yr);
+    const x = i * xStep;
+    g.appendChild(svgEl("line", {
+      x1: x, y1: BASE_Y - 4, x2: x, y2: BASE_Y + 4,
+      stroke: "#9ca3af", "stroke-width": 1,
+    }));
+    const t = svgEl("text", {
+      x, y: CH + M.bottom - 2,
+      fill: "#9ca3af", "font-size": 10, "font-family": "inherit", "text-anchor": "middle",
+    });
+    t.textContent = yr;
+    g.appendChild(t);
+  });
+
+  // Axis labels
+  const yLbl = svgEl("text", {
+    x: -BASE_Y, y: -38,
+    fill: "#9ca3af", "font-size": 10, "font-family": "inherit",
+    "text-anchor": "middle", transform: "rotate(-90)",
+  });
+  yLbl.textContent = "← Mark foran · Flemming foran →";
+  g.appendChild(yLbl);
+
+  // Point coordinates
+  const pts = cumDiffs.map((d, i) => ({
+    x: i * xStep,
+    y: BASE_Y - (d / maxAbs) * (BASE_Y * 0.9),
+  }));
+
+  const lineD = pts.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+  const areaD = `${lineD} L${pts[pts.length - 1].x.toFixed(1)},${BASE_Y} L0,${BASE_Y} Z`;
+
+  // Clip paths for two-color fill
+  const defs = svgEl("defs", {});
+  const clipTop = svgEl("clipPath", { id: "cumulClipTop" });
+  clipTop.appendChild(svgEl("rect", { x: 0, y: 0, width: CW, height: BASE_Y }));
+  const clipBot = svgEl("clipPath", { id: "cumulClipBot" });
+  clipBot.appendChild(svgEl("rect", { x: 0, y: BASE_Y, width: CW, height: CH }));
+  defs.appendChild(clipTop);
+  defs.appendChild(clipBot);
+  g.appendChild(defs);
+
+  // Flemming area (above baseline = positive diff)
+  g.appendChild(svgEl("path", {
+    d: areaD, fill: "#2563c8", "fill-opacity": 0.22, "clip-path": "url(#cumulClipTop)",
+  }));
+  // Mark area (below baseline = negative diff)
+  g.appendChild(svgEl("path", {
+    d: areaD, fill: "#c2410c", "fill-opacity": 0.22, "clip-path": "url(#cumulClipBot)",
+  }));
+  // Line stroke
+  g.appendChild(svgEl("path", {
+    d: lineD, fill: "none", stroke: "#3c3830", "stroke-width": 1.5, "stroke-linejoin": "round",
+  }));
+
+  // Hover: find nearest episode
+  cumSvg.addEventListener("mousemove", (ev) => {
+    const rect = cumSvg.getBoundingClientRect();
+    const scaleX = CVW / rect.width;
+    const mx = (ev.clientX - rect.left) * scaleX - M.left;
+    const idx = Math.max(0, Math.min(hostsChron.length - 1, Math.round(mx / xStep)));
+    const h = hostsChron[idx];
+    const d = cumDiffs[idx];
+    const leader = d > 0 ? "Flemming foran" : d < 0 ? "Mark foran" : "Uafgjort";
+    showTooltip(
+      `<strong>${escHtml(h.title)}</strong><br>` +
+      `<span style="color:#2563c8">Flemming: ${h.flemming}</span><br>` +
+      `<span style="color:#c2410c">Mark: ${h.mark}</span><br>` +
+      `${leader} (${Math.abs(d).toLocaleString("da")})`,
+      ev.clientX, ev.clientY
+    );
+  });
+  cumSvg.addEventListener("mouseleave", hideTooltip);
+
+  container.appendChild(cumSvg);
 }
 
-// ── Nav toggle ────────────────────────────────────────────────────────────────
+// ── Discipline atlas ──────────────────────────────────────────────────────────
+
+const DISCIPLINE_EMOJI = {
+  "Biologi":                       "🔬",
+  "Medicin / Sundhed":             "💊",
+  "Evolution / Palæontologi":      "🦕",
+  "Astronomi / Rumfysik":          "🌌",
+  "Psykologi / Adfærd":            "🧠",
+  "Kemi":                          "⚗️",
+  "Fysik":                         "⚛️",
+  "Økologi / Klima":               "🌿",
+  "Teknologi / Ingeniørvidenskab": "🤖",
+  "Geologi / Geografi":            "🌋",
+};
+
+function renderDisciplines(data) {
+  const container = document.getElementById("disciplines-container");
+  if (!container) return;
+  container.innerHTML = "";
+
+  const disciplines = data.disciplines;
+  if (!disciplines || !disciplines.length) {
+    container.textContent = "Ingen data.";
+    return;
+  }
+
+  const grid = document.createElement("div");
+  grid.className = "discipline-grid";
+
+  for (const disc of disciplines) {
+    const card = document.createElement("div");
+    card.className = "discipline-card";
+    card.setAttribute("role", "button");
+    card.tabIndex = 0;
+    card.setAttribute("aria-label", `${disc.discipline}: ${disc.title}`);
+
+    const fillColor = lerpColor("#f7c696", "#5ebfc6", disc.fit_score / 100);
+
+    card.innerHTML = `
+      <div class="discipline-emoji">${DISCIPLINE_EMOJI[disc.discipline] || "🔬"}</div>
+      <div class="discipline-name">${escHtml(disc.discipline)}</div>
+      <div class="discipline-ep">${escHtml(disc.title)}</div>
+      <div class="discipline-bar-track">
+        <div class="discipline-bar-fill" style="width:${disc.fit_score}%;background:${escHtml(fillColor)}"></div>
+      </div>
+      <div class="discipline-score">Balance: ${disc.fit_score}/100</div>
+      <div class="discipline-reason">"${escHtml(disc.reason)}"</div>
+    `;
+
+    if (disc.episode_id) {
+      const handler = () => openEpisode(disc.episode_id, disc.title);
+      card.addEventListener("click", handler);
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); }
+      });
+    }
+
+    grid.appendChild(card);
+  }
+
+  container.appendChild(grid);
+}
+
+// ── Nav toggle + lazy load ────────────────────────────────────────────────────
 
 let vizLoaded = false;
 
@@ -608,12 +628,11 @@ function loadViz() {
   vizLoaded = true;
 
   const containers = [
-    "seismograph-container", "bestiary-grid", "scatter-container",
-    "bodymap-container", "hosts-container",
+    "bestiary-grid", "scatter-container", "hosts-container", "disciplines-container",
   ];
   for (const id of containers) {
     const el = document.getElementById(id);
-    if (el) el.innerHTML = '<p class="viz-loading">Indlæser…</p>';
+    if (el) el.innerHTML = '<p class="viz-loading">Indlæser\u2026</p>';
   }
 
   fetch("data/viz.json")
@@ -622,11 +641,10 @@ function loadViz() {
       return r.json();
     })
     .then((d) => {
-      renderSeismograph(d);
       renderBestiary(d);
       renderScatter(d);
-      renderBodyMap(d);
       renderHosts(d);
+      renderDisciplines(d);
     })
     .catch((err) => {
       console.error("viz.json load failed:", err);

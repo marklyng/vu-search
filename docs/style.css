@@ -582,17 +582,6 @@ footer a:hover {
   --filth-none:    #c8c0b8;
 }
 
-/* ── Seismograph ─────────────────────────────────────────────────────────── */
-
-.seismograph-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.seismograph-scroll svg {
-  display: block;
-}
-
 /* ── Bestiary ────────────────────────────────────────────────────────────── */
 
 .bestiary-grid {
@@ -626,11 +615,11 @@ footer a:hover {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.bestiary-card[data-category="pattedyr"] { border-left-color: #2563c8; }
-.bestiary-card[data-category="fugl"]     { border-left-color: #0891b2; }
-.bestiary-card[data-category="insekt"]   { border-left-color: #16a34a; }
-.bestiary-card[data-category="reptil"]   { border-left-color: #ca8a04; }
-.bestiary-card[data-category="fisk"]     { border-left-color: #7c3aed; }
+.bestiary-card[data-category="pattedyr"] { border-left-color: #5ebfc6; }
+.bestiary-card[data-category="fugl"]     { border-left-color: #ff3d5a; }
+.bestiary-card[data-category="insekt"]   { border-left-color: #2a9d8f; }
+.bestiary-card[data-category="reptil"]   { border-left-color: #f4a261; }
+.bestiary-card[data-category="fisk"]     { border-left-color: #e9c46a; }
 .bestiary-card[data-category="andet"]    { border-left-color: #9ca3af; }
 
 .bestiary-animal {
@@ -717,15 +706,6 @@ footer a:hover {
 .scatter-container svg {
   display: block;
   width: 100%;
-  height: auto;
-}
-
-/* ── Body map ────────────────────────────────────────────────────────────── */
-
-.bodymap-container svg {
-  display: block;
-  max-width: 420px;
-  margin: 0 auto;
   height: auto;
 }
 
@@ -841,20 +821,120 @@ footer a:hover {
   transition: opacity var(--transition), border-color var(--transition);
 }
 
-.legend-chip[data-category="pattedyr"] { background: #dbeafe; color: #1d4ed8; border-color: #2563c8; }
-.legend-chip[data-category="fugl"]     { background: #cffafe; color: #0e7490; border-color: #0891b2; }
-.legend-chip[data-category="insekt"]   { background: #dcfce7; color: #15803d; border-color: #16a34a; }
-.legend-chip[data-category="reptil"]   { background: #fef9c3; color: #92400e; border-color: #ca8a04; }
-.legend-chip[data-category="fisk"]     { background: #ede9fe; color: #5b21b6; border-color: #7c3aed; }
+.legend-chip[data-category="pattedyr"] { background: #d1f4f6; color: #1a7d85; border-color: #5ebfc6; }
+.legend-chip[data-category="fugl"]     { background: #ffe0e4; color: #c01030; border-color: #ff3d5a; }
+.legend-chip[data-category="insekt"]   { background: #d0eeec; color: #1a6b64; border-color: #2a9d8f; }
+.legend-chip[data-category="reptil"]   { background: #fdefd8; color: #9a5020; border-color: #f4a261; }
+.legend-chip[data-category="fisk"]     { background: #fdf4d8; color: #8a7020; border-color: #e9c46a; }
 .legend-chip[data-category="andet"]    { background: #f3f4f6; color: #4b5563; border-color: #9ca3af; }
 
 .legend-chip--inactive { opacity: 0.35; border-color: transparent; }
 
 /* ── Responsive viz ──────────────────────────────────────────────────────── */
 
+/* Bestiary show-more button */
+.bestiary-show-more {
+  display: block;
+  margin: 0.75rem auto 0;
+  padding: 0.4rem 1rem;
+  background: none;
+  border: 1px solid var(--color-border, #e2ddd8);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.bestiary-show-more:hover {
+  background: var(--color-surface, #f5f0eb);
+  color: var(--color-text);
+}
+
+/* Tug-of-war */
+.hosts-tug {
+  display: block;
+  width: 100%;
+}
+
+/* ── Discipline atlas ────────────────────────────────────────────────────── */
+
+.discipline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.discipline-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-card);
+}
+
+.discipline-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.discipline-card:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.discipline-emoji {
+  font-size: 1.75rem;
+  margin-bottom: 0.4rem;
+  line-height: 1;
+}
+
+.discipline-name {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  margin-bottom: 0.2rem;
+}
+
+.discipline-ep {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+
+.discipline-bar-track {
+  height: 5px;
+  background: var(--color-border);
+  border-radius: 3px;
+  margin-bottom: 0.35rem;
+  overflow: hidden;
+}
+
+.discipline-bar-fill {
+  height: 5px;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.discipline-score {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.discipline-reason {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  line-height: 1.45;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
 @media (max-width: 600px) {
   .bestiary-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-  .hosts-row { height: 6px; }
-  .hosts-row-label { display: none; }
-  .hosts-bar-f, .hosts-bar-m { height: 4px; }
+  .discipline-grid { grid-template-columns: 1fr; }
 }

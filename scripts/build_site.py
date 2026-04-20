@@ -22,6 +22,7 @@ import datetime
 import gzip
 import json
 import os
+import random
 import re
 import sys
 from collections import defaultdict
@@ -82,10 +83,23 @@ SCIENCE_WORDS = [
 # Multi-word science terms handled separately (can't use word-boundary regex on phrases)
 SCIENCE_PHRASES = ["sort hul", "big bang"]
 
+DISCIPLINES = [
+    "Biologi",
+    "Medicin / Sundhed",
+    "Evolution / Palæontologi",
+    "Astronomi / Rumfysik",
+    "Psykologi / Adfærd",
+    "Kemi",
+    "Fysik",
+    "Økologi / Klima",
+    "Teknologi / Ingeniørvidenskab",
+    "Geologi / Geografi",
+]
+
 BODY_PARTS = [
     "hjerne", "blod", "hjerte", "lever", "lunge", "nyre", "mave", "tarm",
     "knogle", "hud", "øje", "mund", "næse", "øre", "arm", "ben",
-    "hånd", "fod", "ryg", "bryst",
+    "hånd", "fod", "ryg", "bryst", "penis",
 ]
 
 # Danish animal name → taxonomy category.
@@ -444,7 +458,10 @@ def build_viz_data(
         title = ep.get("title") or ""
         date = ep.get("date") or ""
         ep_num = ep.get("episode_number")
-        ep_label = f"#{ep_num}: {title}" if ep_num else title
+        if ep_num and not title.startswith(f"#{ep_num}"):
+            ep_label = f"#{ep_num}: {title}"
+        else:
+            ep_label = title
         transcript = transcripts[ep_id]
         seg = segments[ep_id]
 
@@ -492,6 +509,7 @@ def build_viz_data(
         scatological_score = total_filth
         scatter.append({
             "sid": sid,
+            "episode_id": ep_id,
             "ep": ep_num,
             "title": ep_label,
             "date": date,
@@ -536,6 +554,97 @@ def build_viz_data(
     }
 
 
+def build_disciplines(episodes: list[dict]) -> list[dict]:
+    """
+    Call Claude to pick the best representative episode for each discipline.
+    Scores each candidate on scientific depth (0-50) + unhinged humor (0-50).
+    Returns a list of 10 dicts or [] on failure.
+    """
+    try:
+        import anthropic
+    except ImportError:
+        print("  WARNING: anthropic not installed; skipping discipline classification.", file=sys.stderr)
+        return []
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("  WARNING: ANTHROPIC_API_KEY not set; skipping discipline classification.", file=sys.stderr)
+        return []
+
+    lines = []
+    for ep in episodes:
+        ep_num = ep.get("episode_number") or "?"
+        title = ep.get("title") or ""
+        desc = (ep.get("description") or "")[:120].replace("\n", " ")
+        lines.append(f"#{ep_num}: {title} — {desc}")
+
+    disciplines_text = "\n".join(f"- {d}" for d in DISCIPLINES)
+    episodes_text = "\n".join(lines)
+
+    prompt = f"""Du er ekspert i dansk populærvidenskab. Podcasten "Videnskabeligt Udfordret" er en komedievidenskabspodcast, hvor humor og absurditet er LIGESÅ vigtige som videnskaben.
+
+Det perfekte afsnit for en disciplin kombinerer:
+1. FAGLIG DYBDE (0-50 point): Udforsker et ægte begreb inden for disciplinen.
+2. UHØJTIDELIG ABSURDITET (0-50 point): Er sjovt, skørt, vanvittigt eller forfriskende absurd.
+
+Vælg IKKE det mest seriøse afsnit — vælg det med den BEDSTE balance.
+
+Alle {len(episodes)} afsnit (format: #nummer: titel — beskrivelse):
+
+{episodes_text}
+
+For hver af de 10 discipliner nedenfor, find DE 3 BEDSTE kandidater fra listen (alle 3 skal score mindst 70/100):
+{disciplines_text}
+
+Svar KUN med et JSON-array med præcis 10 objekter i samme rækkefølge som disciplinlisten. Hvert objekt:
+- "discipline": disciplinens navn (eksakt som listet)
+- "candidates": array med præcis 3 objekter, hvert med:
+  - "ep": afsnittets nummer (heltal)
+  - "title": afsnittets fulde titel
+  - "fit_score": samlet score 0-100
+  - "reason": én sætning på dansk om BÅDE den faglige dybde OG det absurde/sjove"""
+
+    client = anthropic.Anthropic(api_key=api_key)
+    print("  Calling Claude API for discipline classification...")
+    message = client.messages.create(
+        model="claude-haiku-4-5",
+        max_tokens=4096,
+        messages=[{"role": "user", "content": prompt}],
+    )
+
+    response_text = message.content[0].text.strip()
+    # Strip optional markdown code fences
+    response_text = re.sub(r"```(?:json)?\s*", "", response_text).strip()
+    json_match = re.search(r"\[[\s\S]*\]", response_text)
+    if not json_match:
+        print(f"  WARNING: Could not find JSON array in discipline response: {response_text[:300]}", file=sys.stderr)
+        return []
+
+    try:
+        raw = json.loads(json_match.group())
+    except json.JSONDecodeError as e:
+        print(f"  WARNING: JSON parse error in discipline response: {e}", file=sys.stderr)
+        print(f"  Raw response excerpt: {response_text[:400]}", file=sys.stderr)
+        return []
+    ep_num_to_id = {ep.get("episode_number"): ep["id"] for ep in episodes}
+    result = []
+    for item in raw:
+        candidates = item.get("candidates") or []
+        if not candidates:
+            continue
+        pick = random.choice(candidates)
+        ep_num = pick.get("ep")
+        result.append({
+            "discipline": item["discipline"],
+            "episode_id": ep_num_to_id.get(ep_num, ""),
+            "ep": ep_num,
+            "title": pick.get("title", ""),
+            "fit_score": pick.get("fit_score", 0),
+            "reason": pick.get("reason", ""),
+        })
+    return result
+
+
 def main():
     if not META_FILE.exists():
         print(f"ERROR: {META_FILE} not found. Run scripts/rss_fetch.py first.", file=sys.stderr)
@@ -576,6 +685,10 @@ def main():
 
     print("  Building viz data...")
     viz = build_viz_data(episodes, transcripts, segments)
+
+    print("  Building discipline atlas...")
+    viz["disciplines"] = build_disciplines(episodes)
+
     print("  Writing viz.json...")
     with open(VIZ_FILE, "w", encoding="utf-8") as f:
         json.dump(viz, f, ensure_ascii=False, separators=(",", ":"))
