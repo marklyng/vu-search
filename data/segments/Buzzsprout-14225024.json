@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-14225024",
   "episode_title": "#158: Forensic Frenzy 2 (NSFW!)",
   "pub_date": "2023-12-31",
-  "dyrfakt": "Baby-orme dør, hvis man røver hovedet af dem, og de river armene af hinanden og boller hinanden med deres ar.",
+  "dyrfakt": "Søstjerner har orgier, når de formerer sig. De stiller sig alle synkroniseret på tæer og frigiver æg og sædceller.",
   "listener_question": "Hvis man blander tomatsuppe med hønsekødsuppe, vil tomatsuppen annulere suppedelen og genskabe hønen tilbage, som den var inden?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": null
 }

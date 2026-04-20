@@ -4,5 +4,7 @@
   "pub_date": "2022-07-26",
   "dyrfakt": "Den geologiske eller evolutionære tid mellem Tyrannosaurus rex og Allosaurus er større end den tid, der er gået fra dinosaurerne uddøde til nu.",
   "listener_question": "William spørger, hvad man laver som mikrobiolog, da han er 14 år og synes biologi er spændende.",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Teknisk set er dette en paleontologisk/geologisk kendsgerning snarere end en klassisk dyrfakt, men den er korrekt og velformuleret."
 }

@@ -4,5 +4,7 @@
   "pub_date": "2025-07-28",
   "dyrfakt": "For at skabe ægkasser sprøjter knælere et proteinskum ud fra deres underliv, mens de frigiver deres befrugtede æg. Når det er færdigt, hærder skummet op til en kapsel, der beskytter æggene op til 6 måneder.",
   "listener_question": "Hvorfor laver man kun popcorn af ris og majs, og ikke af andre frugter eller grøntsager?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'Knælere' som dyrenavn er usædvanligt i denne kontekst — sandsynligvis menes der 'knælere' som en type insekt (f.eks. bønneknæler/mantis eller kakerlak), men det er uklart hvilken art der præcist refereres til. Desuden laves popcorn ikke af ris, kun af majs, hvilket tyder på en mulig transskriptionsfejl i lytterspørgsmålet — måske 'hvede og majs' eller blot 'majs'."
 }

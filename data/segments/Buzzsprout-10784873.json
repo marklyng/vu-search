@@ -4,5 +4,7 @@
   "pub_date": "2022-06-13",
   "dyrfakt": "Stikmyrer kan asfaltere en klisterret overflade med nærtliggende materialer, så de kan gå hen over den nemmere.",
   "listener_question": "Hvor lidt lava skal man drikke, før det køler ned og ikke skader en?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Begge segmenter virker mistænkelige: 'stikmyrer der asfalterer' er ikke en kendt adfærd, og spørgsmålet om at drikke lava er åbenlyst absurd/komisk — men podcasten er comedy-science, så det er muligvis intentionelt. 'Stikmyrer' kunne være en fejl for f.eks. 'Pissemyrer' eller en anden myreart. Lav sikkerhed pga. tvivlsom dyrfakt."
 }

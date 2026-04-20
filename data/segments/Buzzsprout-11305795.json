@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-11305795",
   "episode_title": "#089: Vi Bedømmer Dårlig Videnskab",
   "pub_date": "2022-09-12",
-  "dyrfakt": "Når ænder keder sig, kan de blive kanibaler og spise hinanden.",
+  "dyrfakt": "Når ænder keder sig, kan de blive kannibaler og spise hinanden.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Fakta om ænder og kannibalisme er usædvanlig – typisk er det høns, ikke ænder, der er kendte for dette adfærdsproblem ved kedsomhed/stress. Mulig transskriptionsfejl for 'høns'. Stavefejl 'kanibaler' rettet til 'kannibaler'."
 }

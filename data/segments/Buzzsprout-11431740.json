@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-11431740",
   "episode_title": "#092: Virus som lægemiddel?",
   "pub_date": "2022-10-03",
-  "dyrfakt": "Bananflugere bliver friske af kaffe.",
+  "dyrfakt": "Bananfluer bliver friske af kaffe.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Rettet 'Bananflugere' til 'Bananfluer' (sandsynlig transskriptionsfejl); fakta er usædvanlig men ikke umulig."
 }

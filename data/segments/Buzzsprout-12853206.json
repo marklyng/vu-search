@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-12853206",
   "episode_title": "#125: Hvad er følelser?",
   "pub_date": "2023-05-15",
-  "dyrfakt": "Rotter griner i en frekvens på omkring 50.000 hertz, hvilket er højere end menneskets høreevne på cirka 20.000 hertz. Når rotter bliver kildet, udsender de disse ultersoniske grin, og når de bliver kildet, udskiller de opioidstoffer i hjernen, hvilket får dem til at søge at blive kildet igen.",
+  "dyrfakt": "Rotter griner i en frekvens på omkring 50.000 hertz, hvilket er højere end menneskets høreevne på cirka 20.000 hertz. Når rotter bliver kildede, udsender de disse ultralydsgrin, og de udskiller opioidstoffer i hjernen, hvilket får dem til at søge at blive kildede igen.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Mindre gentagelse i originalteksten ('når de bliver kildet' bruges to gange) er rettet; 'ultersoniske grin' ændret til 'ultralydsgrin' for mere naturlig dansk phrasing."
 }

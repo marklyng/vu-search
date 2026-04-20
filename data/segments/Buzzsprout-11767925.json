@@ -4,5 +4,7 @@
   "pub_date": "2022-11-29",
   "dyrfakt": "Verdens ældste skildpadde blev 255 år gammel.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Det er uklart om 255 år er korrekt – den ældst kendte skildpadde (Jonathan) er dokumenteret til ca. 190+ år; 255 lyder usikkert, men da det er et podcastudsagn, rettes det ikke."
 }

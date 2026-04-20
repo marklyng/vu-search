@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-12887848",
   "episode_title": "#126: Fjollet gang er godt for helbredet",
   "pub_date": "2023-05-22",
-  "dyrfakt": "Hundmulvarpe har ovotestes, som henholdsvis producerer ovarian tissue og testicular tissue. Hundmulvarpen har også en kæmpe klitoris, der ligner en penis, og hundmulvarpen skidelukker sig sammen, når det ikke er parringstid.",
+  "dyrfakt": "Hunmuldvarpe har ovotestes, som henholdsvis producerer ovarievæv og testikelvæv. Hunmuldvarpen har også en kæmpe klitoris, der ligner en penis, og hunmuldvarpen lukker sig sammen, når det ikke er parringstid.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Rettet 'Hundmulvarpe' til 'Hunmuldvarpe', 'ovarian tissue' og 'testicular tissue' oversat til dansk, og 'skidelukker sig' rettet til 'lukker sig' — mulig transskriptionsfejl; 'muldvarpe' er den korrekte stavemåde."
 }

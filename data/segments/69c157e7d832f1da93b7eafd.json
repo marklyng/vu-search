@@ -3,6 +3,8 @@
   "episode_title": "#258: Kædesavens oprindelseshistorie",
   "pub_date": "2026-03-23",
   "dyrfakt": null,
-  "listener_question": "En æderkop styrer deres ben med blodtryk. Hvad sker der, hvis de får Viagra?",
-  "model": "claude-haiku-4-5"
+  "listener_question": "En edderkop styrer deres ben med blodtryk. Hvad sker der, hvis de får Viagra?",
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Rettet 'æderkop' til 'edderkop'."
 }

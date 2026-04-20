@@ -3,6 +3,8 @@
   "episode_title": "#097: Alternative præventioner",
   "pub_date": "2022-11-07",
   "dyrfakt": "Billen Regimbartia attenuata tager under to timer om at kravle igennem en frø efter at den er blevet spist, og den kan manipulere med frøens ringmuskel for at kravle ud af røvhullet. Det er det eneste dyr, der aktivt søger en udgang efter det er blevet spist af et rovdyr.",
-  "listener_question": "Når vi smører lotion, serum og andet kropsprodukt på huden, og huden suger det til sig, hvor blir det af? Hvor kommer det hen?",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Når vi smører lotion, serum og andet kropsprodukt på huden, og huden suger det til sig, hvor bliver det af? Hvor kommer det hen?",
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Rettede 'blir' til 'bliver' i lytterspørgsmålet."
 }

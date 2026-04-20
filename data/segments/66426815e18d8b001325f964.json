@@ -2,7 +2,9 @@
   "episode_id": "66426815e18d8b001325f964",
   "episode_title": "#177: Følger Biologer Efter? Del 2",
   "pub_date": "2024-05-13",
-  "dyrfakt": "I 1822 skød en tysk jæger en stork ned, og da han fik fat i storken, opdagede han at den allerede havde været skudt med et 75 centimeter langt spyd fra Afrika. Storken var fløjet hele vejen fra Afrika til Tyskland med spydet i halsen, uden at det havde forhindret den i at flyve.",
+  "dyrfakt": "I 1822 skød en tysk jæger en stork ned, og da han fik fat i storken, opdagede han, at den allerede havde været gennemboret af et 75 centimeter langt spyd fra Afrika. Storken var fløjet hele vejen fra Afrika til Tyskland med spyddet i halsen, uden at det havde forhindret den i at flyve.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "'Skudt med et spyd' er en smule unatural — rettet til 'gennemboret af et spyd'. Desuden er det sandsynligvis et træspyd (pil/spyd), ikke noget der skydes; sætningen er lidt tvetydig, men indholdet er korrekt i forhold til den kendte Pfeilstorch-historie."
 }

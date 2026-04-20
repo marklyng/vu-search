@@ -2,7 +2,9 @@
   "episode_id": "68d134ed2cf15c8db053edae",
   "episode_title": "#245: Rask i galehus: Da David Rosenhan narrede psykiatrien",
   "pub_date": "2025-09-22",
-  "dyrfakt": "Flaggermus kan lave dialekter. Nogle arter ændrer deres kald afhængigt af kolonien, de vokser op i, lidt som at have lokale aksanger hos mennesker.",
+  "dyrfakt": "Flaggermus kan lave dialekter. Nogle arter ændrer deres kald afhængigt af kolonien, de vokser op i, lidt som at have lokale accenter hos mennesker.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Rettede 'aksanger' til 'accenter' (fonetisk fejl fra ASR)."
 }

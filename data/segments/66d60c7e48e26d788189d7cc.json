@@ -2,7 +2,9 @@
   "episode_id": "66d60c7e48e26d788189d7cc",
   "episode_title": "#193: Hvor dybt kan man grave et hul?",
   "pub_date": "2024-09-02",
-  "dyrfakt": "Goriller bøjer sig, når de er glade",
+  "dyrfakt": "Gorillaer bøjer sig, når de er glade.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 72,
+  "review_notes": "Ikke en typisk beskrivelse af gorillaadfærd — beholdes som podcastens formulering."
 }

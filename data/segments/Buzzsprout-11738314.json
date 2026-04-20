@@ -4,5 +4,7 @@
   "pub_date": "2022-11-21",
   "dyrfakt": "Sæler voldtager pingviner.",
   "listener_question": "Holder æg sig virkelig i kortere tid, når man vasker dem, og er det derfor danskerne opbevarer æg i køleskab?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Dyrfakta er usædvanlig, men veldokumenteret biologisk fænomen – ingen korrektioner foretaget."
 }

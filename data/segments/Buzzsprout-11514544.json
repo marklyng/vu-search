@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-11514544",
   "episode_title": "#094: Den hurtigste skalpel i West End - Victoriansk medicin del 1/2",
   "pub_date": "2022-10-17",
-  "dyrfakt": "Der er en finerasse, der er en blanding af dansk og tysk, der hedder Huse Protestvin. De hedder Protestvin, fordi de har en farve, de er røde, og så har de en hvid stribe ned tværs over ryggen, der gør, at de ligner det danske flag. Da det i 1864 var forbudt for danskere i Sønderjylland at flage med Dannebrog, fremraglede danskerne som protest mod det her forbud de her svin, for at kunne have et dansk flag.",
-  "listener_question": "Felix har skrevet ind og spurgt om noget vedrørende fisk og tårer i saltvandsområder.",
-  "model": "claude-haiku-4-5"
+  "dyrfakt": "Der er en griserace, der er en blanding af dansk og tysk, der hedder Husum Protestsvin. De hedder Protestsvin, fordi de har en farve, de er røde, og så har de en hvid stribe ned tværs over ryggen, der gør, at de ligner det danske flag. Da det i 1864 var forbudt for danskere i Sønderjylland at flage med Dannebrog, fremviste danskerne som protest mod det her forbud de her svin, for at kunne have et dansk flag.",
+  "listener_question": "Felix har skrevet ind og spurgt om noget vedrørende fisk og tårer i saltvandsmiljøer.",
+  "model": "claude-haiku-4-5",
+  "certainty": 72,
+  "review_notes": "'finerasse' rettet til 'griserace', 'Huse Protestvin' rettet til 'Husum Protestsvin', 'fremraglede' rettet til 'fremviste'; lytterspørgsmålet er uklart – 'tårer i saltvandsområder' er en underlig formulering, muligvis fejltransskriberet (måske 'osmose' eller lignende emne)."
 }

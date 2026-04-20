@@ -4,5 +4,7 @@
   "pub_date": "2025-07-21",
   "dyrfakt": "Valer har udviklet brystvorter og producerer mælk, der er så tyk, at konsistensen kan sammenlignes med tandpasta.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "'Valer' refererer til hvaler – korrekt dansk stavemåde er 'hvaler', men 'valer' kan forekomme i talt sprog/ASR-transskription."
 }

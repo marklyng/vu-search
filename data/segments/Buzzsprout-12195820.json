@@ -4,5 +4,7 @@
   "pub_date": "2023-02-06",
   "dyrfakt": "En minikameleon er blevet opdaget på Madagaskar. Den er 0,87 tommer lang.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "'Tommer' er korrekt dansk for inches, men det er usædvanligt i dansk videnskabelig kontekst – målet svarer til ca. 2,2 cm, hvilket er plausibelt for en minikameleon (Brookesia nana)."
 }

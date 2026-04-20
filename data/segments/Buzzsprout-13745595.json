@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-13745595",
   "episode_title": "#146: Genetik og håndgranater (JBS Haldane junior)",
   "pub_date": "2023-10-09",
-  "dyrfakt": "Kangurer kan ikke gå baglæns. De hopper baglæns.",
+  "dyrfakt": "Kænguruer kan ikke gå baglæns. De kan hoppe baglæns.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Rettet 'Kangurer' til 'Kænguruer' og tilføjet 'kan' før 'hoppe baglæns' for mere naturlig dansk sætningsstruktur."
 }

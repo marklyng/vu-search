@@ -3,6 +3,8 @@
   "episode_title": "#257: Lavede russerne menneske-abe hybrider?",
   "pub_date": "2026-03-09",
   "dyrfakt": "Grise producerer 15 liter spyt om dagen, heste producerer 40 liter spyt om dagen, og okser producerer 110 liter spyt om dagen.",
-  "listener_question": "Hvis en cykelrytter har en kvart hestekraft, og 1344 høns svarer til en T-Rex kraft, hvor mange T-Rex heste- eller hønsekræfter har troldsmør?",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Hvis en cykelrytter har en kvart hestekraft, og 1344 høns svarer til en T-Rex kraft, hvor mange T-Rex-, heste- eller hønsekræfter har troldsmør?",
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'troldsmør' er sandsynligvis et sjovt/hypotetisk begreb brugt i podcasten – ordet er bevaret som det er, men konteksten er uklar. Mindre tegnsætningskorrektion i spørgsmålet."
 }

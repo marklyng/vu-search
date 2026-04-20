@@ -4,5 +4,7 @@
   "pub_date": "2023-11-13",
   "dyrfakt": "Kængurer kan gå på deres forben",
   "listener_question": "Hvis noget er gennemblødt af meget varmt øl, tør det så hurtigere end hvis det er gennemblødt af koldt øl?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Dyrfakta er usædvanlig — kængurer er ikke kendte for at 'gå' på forbenene; de bruger dem til langsom gang, men formuleringen virker lidt misvisende eller potentielt fejltranskriberet."
 }

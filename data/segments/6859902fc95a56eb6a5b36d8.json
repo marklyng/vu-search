@@ -4,5 +4,6 @@
   "pub_date": "2025-06-23",
   "dyrfakt": "Katte kan godt lide at blive kløet på ryggen lige over halen, fordi det er deres erogene zone.",
   "listener_question": "Er alle bjørne lige så dovne som Baloo fra Junglebogen?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95
 }

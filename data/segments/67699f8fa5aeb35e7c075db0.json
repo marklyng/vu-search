@@ -2,7 +2,9 @@
   "episode_id": "67699f8fa5aeb35e7c075db0",
   "episode_title": "#209: Juleafsnit 2024 - Nissologen",
   "pub_date": "2024-12-23",
-  "dyrfakt": "Rensdyr øjne kan blive blå om vinteren for at tilpasse sig til den lange vinter, så de bedre kan se i mørket. Om sommeren bliver øjnene igen brune-gyldne.",
+  "dyrfakt": "Rensdyrs øjne kan blive blå om vinteren for at tilpasse sig til den lange vinter, så de bedre kan se i mørket. Om sommeren bliver øjnene igen brungylden.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Ændret 'Rensdyr øjne' til 'Rensdyrs øjne' (genitiv). 'Brune-gyldne' rettet til 'brungylden' – præcis farveterm kan variere i litteraturen."
 }

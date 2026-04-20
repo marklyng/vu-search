@@ -4,5 +4,6 @@
   "pub_date": "2022-08-29",
   "dyrfakt": "I 2016 var der en global eftersøgning efter en partner til Jeremy, en sjælden snegl med et hus, der drejede mod uret. Fordi Jeremys hus drejede den forkerte vej, kunne hans kønsorganer ikke sættes sammen med andre snegle. Man fandt to kandidater, men de to kandidater endte med at parre sig med hinanden i stedet for.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 99
 }

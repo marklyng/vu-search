@@ -2,7 +2,9 @@
   "episode_id": "661d4ec1a66b730016d267f9",
   "episode_title": "#173: SETI@home",
   "pub_date": "2024-04-16",
-  "dyrfakt": "Størspidsmusen er Danmarks mindste pattedyr. Den er så lille og har så hurtigt stofskifte, at hvis den går 35 minutter uden mad, så dør den.",
+  "dyrfakt": "Dværgspidsmusen er Danmarks mindste pattedyr. Den er så lille og har så hurtigt stofskifte, at hvis den går 35 minutter uden mad, så dør den.",
   "listener_question": "Sveder man mere, når fugtigheden i luften er høj, kontra hvis den var lav?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": null
 }

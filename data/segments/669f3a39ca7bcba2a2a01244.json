@@ -2,7 +2,9 @@
   "episode_id": "669f3a39ca7bcba2a2a01244",
   "episode_title": "#187: Fjer på frontlinjen - Missiler styret af duer (Live)",
   "pub_date": "2024-07-23",
-  "dyrfakt": "Duer er bedre end retter",
+  "dyrfakt": "Duer er bedre end rotter",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'retter' rettet til 'rotter' (phonetisk fejl), men sætningen er meget kort og kontekstløs — usikkert om den er komplet."
 }

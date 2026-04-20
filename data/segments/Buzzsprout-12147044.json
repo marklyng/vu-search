@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-12147044",
   "episode_title": "#110: Jagten på ålens klunker",
   "pub_date": "2023-01-30",
-  "dyrfakt": "Den duskede råbegång er en fisk, der kamuflerer sig som mos på bunden af havet.",
+  "dyrfakt": "Den duskede ragenak er en fisk, der kamuflerer sig som mos på bunden af havet.",
   "listener_question": "Er det rigtigt, at ris ikke kan koge på Mount Everest, fordi vands kogepunkt er lavere?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 62,
+  "review_notes": "'råbegång' er sandsynligvis en fejl-transskription af et fiskenavn — muligvis 'ragenak' (Taenianotus triacanthus) eller et andet navn; usikkert hvad det korrekte navn er."
 }

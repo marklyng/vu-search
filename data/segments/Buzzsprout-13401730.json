@@ -3,6 +3,8 @@
   "episode_title": "#138: Har USA aliens i kælderen?",
   "pub_date": "2023-08-14",
   "dyrfakt": null,
-  "listener_question": "Hvorfor får man flere og værre tømmermand, des ældre man bliver, og hvorfor skal der mindre til at give tømmermand, når man bliver ældre?",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Hvorfor får man flere og værre tømmermænd, des ældre man bliver, og hvorfor skal der mindre til at give tømmermænd, når man bliver ældre?",
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Rettet 'tømmermand' til 'tømmermænd' (flertal) to steder."
 }

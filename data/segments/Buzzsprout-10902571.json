@@ -4,5 +4,7 @@
   "pub_date": "2022-07-05",
   "dyrfakt": null,
   "listener_question": "Hvordan føles det at være uden høns?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Spørgsmålet er grammatisk korrekt, men 'uden høns' er en usædvanlig formulering – muligvis en transkriptionsfejl for fx 'uden hund' eller noget andet."
 }

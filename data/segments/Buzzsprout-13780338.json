@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-13780338",
   "episode_title": "#147: Alien Hand Syndrome",
   "pub_date": "2023-10-16",
-  "dyrfakt": "Turritopsis dohrnii er en jellyfish, der kan blive udødelig ved at udvikle sig tilbage til sit polypstadie, når den føler sig truet af temperaturændringer eller sult, og derefter vokser op på ny igen og igen.",
+  "dyrfakt": "Turritopsis dohrnii er en vandmand, der kan blive udødelig ved at udvikle sig tilbage til sit polypstadie, når den føler sig truet af temperaturændringer eller sult, og derefter vokser op på ny igen og igen.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "Rettede 'jellyfish' til det danske 'vandmand'."
 }

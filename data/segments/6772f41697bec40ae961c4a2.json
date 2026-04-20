@@ -3,6 +3,8 @@
   "episode_title": "#210: Forensic frenzy 3 - Blåbærdværgen, kokainballonen og Nejlinermanden",
   "pub_date": "2024-12-30",
   "dyrfakt": null,
-  "listener_question": "Guldsmedehunder lader som om de er døde for at slippe for mandlig opmærksomhed.",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Guldsmedehunner lader som om de er døde for at slippe for mandlig opmærksomhed.",
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": null
 }

@@ -4,5 +4,7 @@
   "pub_date": "2024-02-19",
   "dyrfakt": "Søløven er det første ikke-menneskelige pattedyr med evnen til at holde et beat. En hundsøløve ved navn Ronan blev trænet til at holde beat af videnskabsfolk, som herefter viste, at hun kunne overføre evnen til en sang med et andet beat, selvom hun ikke havde hørt sangen før.",
   "listener_question": "Hvis to personer står ved siden af hinanden og de slår begge to en prut, men kun den ene lugter, vil personen, der ikke lugtede noget, blive snydt til at tro, at det lugtede prut er deres eget og derfor kunne lide det?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Mindre usikkerhed om 'hundsøløve' — det korrekte danske ord er 'hunnsøløve' eller blot 'søløven Ronan', men betydningen er klar."
 }

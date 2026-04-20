@@ -4,5 +4,6 @@
   "pub_date": "2023-09-04",
   "dyrfakt": null,
   "listener_question": "Popper ens øjne ud, hvis man holder dem åbne, mens man nyser?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 100
 }

@@ -3,6 +3,8 @@
   "episode_title": "#154: Benjamin Button Sygdommen",
   "pub_date": "2023-12-04",
   "dyrfakt": null,
-  "listener_question": "Hvor meget er en hestekraft, og hvor mange hestekræfter træder en professionel cykelrytter?",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Hvor meget er en hestekraft, og hvor mange hestekræfter yder en professionel cykelrytter?",
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Ændrede 'træder' til 'yder' da 'yder' er mere naturligt i denne kontekst, selvom 'træder' teknisk set kan bruges om cykling."
 }

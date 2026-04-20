@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-13613453",
   "episode_title": "#143: Snegleinternettet",
   "pub_date": "2023-09-18",
-  "dyrfakt": "Frøbillen har en ualmindeligt ubehagelig penis, belagt med pigge, som flenser hundbillens vagina i stykker.",
+  "dyrfakt": "Frøbillen har en ualmindeligt ubehagelig penis, belagt med pigge, som flænser hunbillens vagina i stykker.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "Rettet 'flenser' til 'flænser' og 'hundbillens' til 'hunbillens'."
 }

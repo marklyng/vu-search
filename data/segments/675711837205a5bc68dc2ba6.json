@@ -2,7 +2,9 @@
   "episode_id": "675711837205a5bc68dc2ba6",
   "episode_title": "#207: Har du superfarvesyn?",
   "pub_date": "2024-12-09",
-  "dyrfakt": "Farven på løvers manke hænger sammen med mængden af testosteron i kroppen. Jo mere testosteron, jo mørkere manke, og som regel også jo mere aggressiv er han, og derfor dygtig til at passe på sit harem.",
+  "dyrfakt": "Farven på løvers manke hænger sammen med mængden af testosteron i kroppen. Jo mere testosteron, jo mørkere manke, og som regel også jo mere aggressiv er han, og derfor dygtigere til at passe på sit harem.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "Ændrede 'dygtig' til 'dygtigere' for mere naturlig komparativ sammenligning i sætningskonteksten."
 }

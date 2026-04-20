@@ -2,7 +2,9 @@
   "episode_id": "68e3a4f027c09a446bd91cf7",
   "episode_title": "#246: Biovåbenet der skulle redde osten",
   "pub_date": "2025-10-06",
-  "dyrfakt": "En art af træspidsmus fra Borneo har et mutualistisk forhold til kandebægerplanten, hvor den sætter sig om morgenen og skider ned i planten, og så bliver det lavet om til sukkervand, som man kan drikke om aftenen.",
+  "dyrfakt": "En art af træspidsmus fra Borneo har et mutualistisk forhold til kandebægerplanten, hvor den sætter sig om morgenen og skider ned i planten, og så bliver gødningen omdannet til næring for planten, mens spidsmusen til gengæld får nektar at drikke.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Den originale beskrivelse ('lavet om til sukkervand, som man kan drikke om aftenen') er biologisk unøjagtig og mærkelig — forholdet er at planten får kvælstof fra ekskrementer, mens spidsmusen får nektar. Teksten er sandsynligvis en humoristisk/forvredet gengivelse fra podcasten, så korrektionen er usikker."
 }

@@ -2,7 +2,9 @@
   "episode_id": "683de1a40d2b3bac3e1cd6f2",
   "episode_title": "#232: Professor i etik – dømt for voldtægt af en handicappet",
   "pub_date": "2025-06-02",
-  "dyrfakt": "Slanger har naver i spidsen af halen",
+  "dyrfakt": "Slanger har nerver i spidsen af halen",
   "listener_question": "Er majs reelt set mad, eller er det bare fylde uden næring?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "'naver' rettet til 'nerver' (fonetisk fejl fra ASR)."
 }

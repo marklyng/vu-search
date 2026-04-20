@@ -2,7 +2,9 @@
   "episode_id": "664b247c2e12a80012128c12",
   "episode_title": "#178: Hollywoods radioaktive hemmelighed",
   "pub_date": "2024-05-20",
-  "dyrfakt": "Vandfugle kan stoppe deres hjerte i op til 45 minutter for at undgå at blive hørt af højtflyvende rovfugle",
+  "dyrfakt": "For at undgå at blive hørt af hajer, kan vandiguanaer stoppe deres hjerte i op til 45 minutter.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": null
 }

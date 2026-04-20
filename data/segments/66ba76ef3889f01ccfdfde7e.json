@@ -2,7 +2,9 @@
   "episode_id": "66ba76ef3889f01ccfdfde7e",
   "episode_title": "#190: Ubehagelige robotter",
   "pub_date": "2024-08-12",
-  "dyrfakt": "En af elges primære fjender er spækhuggeren, fordi elgen er så mægtig, at det eneste, der kan påtage sig at jage den, er spækhuggeren.",
+  "dyrfakt": "En af elgens primære fjender er spækhuggeren, fordi elgen er så mægtig, at det eneste dyr, der kan påtage sig at jage den, er spækhuggeren.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Påstanden er biologisk tvivlsom — spækhugger jager normalt ikke elge; ulve og bjørne er de reelle primære fjender. Mulig transskriptionsfejl eller usædvanlig formulering. Lavt certainty pga. indholdsmæssig usikkerhed."
 }

@@ -4,5 +4,7 @@
   "pub_date": "2025-01-27",
   "dyrfakt": "Der findes fisk med lommelygter under øjnene, som de kan slukke for. De bruger dem til at se nedad efter fiskemad, som synker ned.",
   "listener_question": "Kan man få musik til at komme ud af en plante ved at røre ved den med en radioantenne?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'fiskemad som synker ned' er en smule uklar formulering — det er sandsynligvis byttefisk eller føde der synker, men betydningen er forståelig. 'lommelygter under øjnene' er usædvanligt men kan referere til lysorgan (fotoforer) hos visse dybhavsfisk."
 }

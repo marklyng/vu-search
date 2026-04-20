@@ -4,5 +4,7 @@
   "pub_date": "2025-06-09",
   "dyrfakt": "Metanen fra køer dannes i deres vom under nedbrudningen af græs, og når køerne bøvser græsset op for at tygge det igen, kommer metanen fra vommen direkte op gennem spiserøret og ud i atmosfæren.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "'Bøvser græsset op' er en lidt usædvanlig formulering — køer 'gylper drøv op' (drøvtygning), men sætningen er forståelig og kan være bevidst folkelig/humoristisk sprogbrug i podcastens stil."
 }

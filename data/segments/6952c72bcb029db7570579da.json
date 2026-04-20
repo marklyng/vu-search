@@ -4,5 +4,7 @@
   "pub_date": "2025-12-29",
   "dyrfakt": "Delfiner drukner sig selv, hvis de er deprimerede.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Påstanden om at delfiner aktivt drukner sig selv ved depression er omdiskuteret og ikke veldokumenteret – mulig fejlekstraktion eller overdrivelse af fakta."
 }

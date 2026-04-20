@@ -3,6 +3,8 @@
   "episode_title": "#153: Sex med Flemmings mor",
   "pub_date": "2023-11-27",
   "dyrfakt": null,
-  "listener_question": "Lytterne stiller spørgsmål til Connie som Flemmingsmor, især om fænomenet MILF og hvilken betydning dette label har for møder og kvinder generelt.",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Lytterne stiller spørgsmål til Connie som Flemmings mor, især om fænomenet MILF og hvilken betydning dette label har for mænd og kvinder generelt.",
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'møder' rettet til 'mænd' (sandsynlig transskriptionsfejl); konteksten er usædvanlig for en videnskabspodcast, hvilket sænker sikkerheden."
 }

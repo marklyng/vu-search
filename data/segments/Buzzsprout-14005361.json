@@ -4,5 +4,7 @@
   "pub_date": "2023-11-20",
   "dyrfakt": "Handhamstre kan lide at bruge deres testikler som hovedpude, når de hviler.",
   "listener_question": "Hvornår er vand opløst i sukker, og hvornår er sukker opløst i vand?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "Dyrfakta om handhamstre og testikler som hovedpude er biologisk usædvanlig, men kan være en humoristisk kendsgerning fra podcasten — lader den stå som den er."
 }

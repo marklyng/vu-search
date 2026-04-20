@@ -2,7 +2,9 @@
   "episode_id": "6964be4e23ce58f146db31e3",
   "episode_title": "#253: Verdens største eksperiment (Liveshow)",
   "pub_date": "2026-01-12",
-  "dyrfakt": "Der blev fundet en gigantisk amøbe inde i biosfæren, som blev døbt Øvehybers amøba biosferica, og man troede først, at det var en helt ny art udviklet gennem hurtig evolution, men man opdagede senere, at den også fandtes ude i naturen.",
+  "dyrfakt": "Der blev fundet en gigantisk amøbe inde i biosfæren, som blev døbt Overhybers amøba biosferica, og man troede først, at det var en helt ny art udviklet gennem hurtig evolution, men man opdagede senere, at den også fandtes ude i naturen.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Det latinske navn 'Øvehybers amøba biosferica' (muligvis 'Overhybers') virker som en transskriptionsfejl af et ukendt videnskabeligt navn — det korrekte navn kan ikke fastslås med sikkerhed."
 }

@@ -2,7 +2,9 @@
   "episode_id": "67aa51ff3ef0b176eacad36f",
   "episode_title": "#216: Atheister på svampe, dræberpools og Borat mutanter",
   "pub_date": "2025-02-10",
-  "dyrfakt": "Den mexicanske salamander, axolotl, kan regenerere alle organer og har flere individer i fangeskab end i naturen.",
+  "dyrfakt": "Den mexicanske salamander, axolotl, kan regenerere alle organer og har flere individer i fangenskab end i naturen.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Rettet 'fangeskab' til 'fangenskab'."
 }

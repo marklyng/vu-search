@@ -2,8 +2,10 @@
   "episode_id": "66255a1d0b123200122f3254",
   "episode_title": "#174: Bæstet fra Gévaudan",
   "pub_date": "2024-04-22",
-  "dyrfakt": "I den franske by Crèmen-Bélédon er der 15 forår, som går i skolen, så elevtallet ikke er for lavt.",
+  "dyrfakt": null,
   "listener_question": null,
   "model": "claude-haiku-4-5",
-  "animal": "hest"
+  "animal": "hest",
+  "certainty": 100,
+  "review_notes": null
 }

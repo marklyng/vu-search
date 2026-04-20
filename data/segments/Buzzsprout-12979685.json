@@ -2,8 +2,10 @@
   "episode_id": "Buzzsprout-12979685",
   "episode_title": "#128: Dr. Money og drengen der mistede sin diller",
   "pub_date": "2023-06-05",
-  "dyrfakt": "En bidronning bliver ved med at formere sig, indtil hun har indsamlet 70 millioner sædceller.",
+  "dyrfakt": "En bidronning bliver ved med at parre sig, indtil hun har indsamlet 70 millioner sædceller.",
   "listener_question": null,
   "model": "claude-haiku-4-5",
-  "animal": "bi"
+  "animal": "bi",
+  "certainty": 95,
+  "review_notes": "Ændrede 'formere sig' til 'parre sig', da konteksten handler om indsamling af sædceller under parringen, ikke formering generelt – men den originale formulering er ikke helt forkert."
 }

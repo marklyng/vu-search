@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-10074518",
   "episode_title": "#059: Sådan vinder du MasterChef med Science!",
   "pub_date": "2022-02-14",
-  "dyrfakt": "Kakalakarten (diploptera punctata) er den eneste art blandt kakerlakker, der føder levende unger. Dens mælk er fire gange mere næringsrig i forhold til komælk og kunne anvendes som et nyttigt proteinsulement i fremtiden.",
+  "dyrfakt": "Kakalakarten (Diploptera punctata) er den eneste art blandt kakerlakker, der føder levende unger. Dens mælk er fire gange mere næringsrig end komælk og kunne anvendes som et nyttigt proteinsupplement i fremtiden.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Rettet 'Kakalakarten' til korrekt stavning (sandsynligvis ment som 'kakerlakken'), 'i forhold til' ændret til 'end', og 'proteinsulement' rettet til 'proteinsupplement'. Navnet 'Kakalakarten' er muligvis en transskriptionsfejl for 'kakerlakken' eller et kaldenavn."
 }

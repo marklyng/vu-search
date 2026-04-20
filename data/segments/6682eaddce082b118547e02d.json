@@ -2,7 +2,9 @@
   "episode_id": "6682eaddce082b118547e02d",
   "episode_title": "#184: Hjernens Pauseskærm",
   "pub_date": "2024-07-01",
-  "dyrfakt": "Isfuglen fik inspiration for japanske hurtigtog til ikke at bryde lydmuren og ødelægge miljøet omkring dem.",
+  "dyrfakt": "Isfuglen inspirerede designet af japanske hurtigtog, så de ikke bryder lydmuren og ødelægger miljøet omkring dem.",
   "listener_question": "Kan planter få kræft?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Den originale sætning var lidt uklar i konstruktionen – omformuleret for bedre at afspejle at isfuglen var inspirationskilden til næbbets aerodynamik brugt i togdesign."
 }

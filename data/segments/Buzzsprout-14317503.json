@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-14317503",
   "episode_title": "#160: Smag på mine prutbakterier",
   "pub_date": "2024-01-16",
-  "dyrfakt": "Lyden af gorillaens trummen på brystet er et ærligt signal til andre om, hvor store de er og kan høres op til en kilometer væk, hvis de er store nok.",
+  "dyrfakt": "Lyden af gorillaens trummen på brystet er et ærligt signal til andre om, hvor store de er, og kan høres op til en kilometer væk, hvis de er store nok.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "Sætningen er lidt akavet i sin konstruktion ('hvis de er store nok' som afslutning), men er beholdt da det sandsynligvis afspejler den faktiske udtalelse."
 }

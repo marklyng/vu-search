@@ -92,11 +92,13 @@ BODY_PARTS = [
 # Sorted longest-first at runtime to prevent "ko" matching inside "koala"/"koral".
 ANIMAL_CATEGORIES = {
     # Pattedyr (mammals)
-    "træspidsmus": "pattedyr", "havrodder": "pattedyr", "orangutang": "pattedyr",
+    "træspidsmus": "pattedyr", "havrodder": "pattedyr", "havodder": "pattedyr",
+    "orangutang": "pattedyr", "dværgspidsmus": "pattedyr",
     "størspidsmus": "pattedyr", "dværghamster": "pattedyr",
     "dværhamstre": "pattedyr", "dværhamster": "pattedyr",
     "handhamstre": "pattedyr", "vaskebjørn": "pattedyr", "flodhest": "pattedyr",
     "chimpanse": "pattedyr", "flagermus": "pattedyr", "flaggermus": "pattedyr", "blåhval": "pattedyr",
+    "hunmuldvarp": "pattedyr",
     "dørhovedmyre": "insekt", "haddelfin": "pattedyr", "søløve": "pattedyr",
     "dovendyr": "pattedyr", "dårndyr": "pattedyr",
     "valer": "pattedyr",
@@ -136,6 +138,7 @@ ANIMAL_CATEGORIES = {
     "stork": "fugl", "stær": "fugl", "svane": "fugl", "ugle": "fugl",
     "ørn": "fugl", "gås": "fugl",
     # Insekter / edderkopper (insects / arachnids)
+    "påfugleedderkoppe": "insekt", "fugleedderkoppe": "insekt",
     "æderkoppe": "insekt", "edderkoppe": "insekt", "kakerlak": "insekt",
     "sommerfugl": "insekt", "bananflug": "insekt", "bananflue": "insekt",
     "stikmyre": "insekt", "skorpion": "insekt", "termit": "insekt",
@@ -155,6 +158,7 @@ ANIMAL_CATEGORIES = {
     "sild": "fisk", "torsk": "fisk", "ål": "fisk",
     # Andet (other / marine invertebrates)
     "ferskvandssnegl": "andet",  # compound form, canonical: snegl
+    "søstjerne": "andet",
     "blæksprutte": "andet", "blæksprut": "andet",   # two Danish inflection forms
     "turritopsis": "andet", "vandmænd": "andet", "rankefød": "andet", "rankefod": "andet",
     "dolkhale": "andet", "vandmand": "andet", "sandorm": "andet",
@@ -199,7 +203,14 @@ _ANIMAL_CANONICAL: dict[str, str] = {
     "dårndyr": "dovendyr",       # Whisper mishearing of "dovendyr" (sloth)
     "ferskvandssnegl": "snegl",  # compound form → generic snail
     "føl": "hest",               # foal → horse
-    "flaggermus": "flagermus",   # double-g variant → canonical single-g spelling
+    "flaggermus": "flagermus",        # double-g variant → canonical single-g spelling
+    "hunmuldvarp": "muldvarp",        # hun-muldvarp compound → generic mole
+    "havrodder": "havodder",          # alternate spelling
+    "havodder": "odder",              # sea otter → otter category
+    "dværgspidsmus": "spidsmus",      # compound → generic
+    "størspidsmus": "spidsmus",       # compound → generic
+    "påfugleedderkoppe": "edderkoppe",
+    "fugleedderkoppe": "edderkoppe",
 }
 
 

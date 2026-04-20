@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-14202538",
   "episode_title": "#157: Patentguden Sir Dr. Nakamats",
   "pub_date": "2023-12-25",
-  "dyrfakt": "Heste kan få tænder i ørerne, som hedder en ektopisk tand.",
+  "dyrfakt": "Heste kan få tænder i ørerne, hvilket kaldes en ektopisk tand.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Usædvanlig kendsgerning – ektopiske tænder i hestens ører er meget sjældent dokumenteret; phrasing er rettet til mere naturlig dansk, men faktaens rigtighed er usikker."
 }

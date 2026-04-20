@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-11264060",
   "episode_title": "#088: My Little Pony har sit eget forskningsfelt",
   "pub_date": "2022-09-05",
-  "dyrfakt": "Papegøjefuglekopper går nogle gange rundt med en vandtrop som hat for at imponere potentielle mager.",
+  "dyrfakt": "Påfugleedderkopper går nogle gange rundt med en vanddråbe som hat for at imponere potentielle mager.",
   "listener_question": "Hvis I selv kunne lave et stykke vanvittigt videnskab, inden for hvilket emne ville I lave det, og hvordan ville jeres forsøg se ud?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": null
 }

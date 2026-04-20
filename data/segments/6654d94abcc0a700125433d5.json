@@ -2,7 +2,9 @@
   "episode_id": "6654d94abcc0a700125433d5",
   "episode_title": "#179: Syntetisk liv",
   "pub_date": "2024-05-27",
-  "dyrfakt": "Mange arter af ferskvandssnegle er hermofroditter, hvilket vil sige, at de både har mandlige og kvindelige kønsorganer og kan reproducere med sig selv aseksuelt.",
+  "dyrfakt": "Mange arter af ferskvandssnegle er hermafroditter, hvilket vil sige, at de både har mandlige og kvindelige kønsorganer og kan reproducere med sig selv aseksuelt.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Rettede 'hermofroditter' til 'hermafroditter'. Bemærk at hermafroditter teknisk set ikke nødvendigvis reproducerer aseksuelt – selv-befrugtning er mulig, men det er ikke helt det samme som aseksuel reproduktion. Sætningen er dog rimelig som populariseret fremstilling."
 }

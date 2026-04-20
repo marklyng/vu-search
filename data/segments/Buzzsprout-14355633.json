@@ -3,6 +3,8 @@
   "episode_title": "#161: Parapsykologisk super chokolade",
   "pub_date": "2024-01-22",
   "dyrfakt": null,
-  "listener_question": "Hvor gamle skal de graves?",
-  "model": "claude-haiku-4-5"
+  "listener_question": null,
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": null
 }

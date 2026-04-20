@@ -2,7 +2,9 @@
   "episode_id": "67e156daa7645568bd68f819",
   "episode_title": "#222: Vi har mikroplast i hjernen - er det farligt?",
   "pub_date": "2025-03-24",
-  "dyrfakt": "Pirater kan bruges til at klippe plastikstrips over",
-  "listener_question": "Hvor meget mikroplast skal der til at lave en Warhammer skubbedugge?",
-  "model": "claude-haiku-4-5"
+  "dyrfakt": "Piratfisk kan bruges til at klippe plastikstrips over.",
+  "listener_question": "Hvor meget mikroplast skal der til at lave en Warhammer-figur?",
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Piratfisk er sandsynligvis en transskriptionsfejl for piranha."
 }
