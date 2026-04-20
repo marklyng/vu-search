@@ -4,5 +4,6 @@
   "pub_date": "2024-03-04",
   "dyrfakt": "Der er et sted på jorden, hvor morer angriber og spiser retvaler. Morerne styrdykker ned i kalvene og tager bider af spæk ud af ryggen på dem, når de kommer op for at trække luft.",
   "listener_question": "Hvis man tager en høne med i sauna, får man så kogte æg ud?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "animal": "måge"
 }

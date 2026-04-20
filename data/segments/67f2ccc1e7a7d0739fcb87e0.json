@@ -4,5 +4,6 @@
   "pub_date": "2025-04-07",
   "dyrfakt": "De kan spise sig igennem træ dobbelt så hurtigt, hvis de lytter til rockmusik.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "animal": "bæver"
 }
