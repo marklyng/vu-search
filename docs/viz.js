@@ -621,31 +621,28 @@ function renderDisciplines(data) {
 
 // ── TOC active highlighting ───────────────────────────────────────────────────
 
-let tocInitialized = false;
-
 function initVizToc() {
-  if (tocInitialized) return;
-  tocInitialized = true;
-
   const links = Array.from(document.querySelectorAll(".viz-toc-link"));
-  if (!links.length) return;
+  if (!links.length) return () => {};
 
   const sections = links
-    .map((l) => document.getElementById(l.dataset.target))
+    .map((l) => document.getElementById(l.getAttribute("href").slice(1)))
     .filter(Boolean);
 
   function updateActive() {
+    if (!document.body.classList.contains("viz-open")) return;
+    // 120px: section counts as "active" once its top has scrolled past this offset
     let activeId = sections[0] ? sections[0].id : null;
     for (const s of sections) {
       if (s.getBoundingClientRect().top <= 120) activeId = s.id;
     }
     for (const l of links) {
-      l.classList.toggle("viz-toc-link--active", l.dataset.target === activeId);
+      l.classList.toggle("viz-toc-link--active", l.getAttribute("href").slice(1) === activeId);
     }
   }
 
   window.addEventListener("scroll", updateActive, { passive: true });
-  updateActive();
+  return updateActive;
 }
 
 // ── Nav toggle + lazy load ────────────────────────────────────────────────────
@@ -656,7 +653,7 @@ function loadViz() {
   if (vizLoaded) return;
   vizLoaded = true;
 
-  initVizToc();
+  const updateTocActive = initVizToc();
 
   const containers = [
     "bestiary-grid", "scatter-container", "hosts-container", "disciplines-container",
@@ -676,6 +673,7 @@ function loadViz() {
       renderScatter(d);
       renderHosts(d);
       renderDisciplines(d);
+      updateTocActive();
     })
     .catch((err) => {
       console.error("viz.json load failed:", err);
