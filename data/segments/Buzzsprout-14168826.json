@@ -4,5 +4,7 @@
   "pub_date": "2023-12-18",
   "dyrfakt": "Hajer omdanner urinstof til urea og udskiller det igennem deres hud for ikke at tørre ud i saltvandet.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Fagligt set er det omvendt: hajer bevarer urinstof (urea) i blodet for at modvirke osmotisk udtørring – de udskiller det ikke aktivt gennem huden. Sætningen kan være en transskriptionsfejl eller forenkling, men er bibeholdt som den stod da det ikke er redaktørens opgave at omskrive indholdet, kun rette sproglige fejl."
 }

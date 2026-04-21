@@ -4,5 +4,6 @@
   "pub_date": "2024-09-30",
   "dyrfakt": "Mange kaniner falder om efter orgasme",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95
 }

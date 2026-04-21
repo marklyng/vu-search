@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-14265947",
   "episode_title": "#159: Helbredende hensigter",
   "pub_date": "2024-01-08",
-  "dyrfakt": "Kaniner har fem fingre på hver forpåte, men kun fire tær på hver bagpåte.",
+  "dyrfakt": "Kaniner har fem fingre på hver forpote, men kun fire tæer på hver bagpote.",
   "listener_question": "Hvorfor stønner ældre mænd så meget i sauna?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Rettede 'forpåte'/'bagpåte' til 'forpote'/'bagpote' og 'fingre'/'tær' til korrekte former; 'tæer' er standardformen."
 }

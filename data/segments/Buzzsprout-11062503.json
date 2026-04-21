@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-11062503",
   "episode_title": "#083: Ambulance til fremtiden",
   "pub_date": "2022-08-02",
-  "dyrfakt": "Bævere spiser kun det yderste af træet, og fordi det er svært at få næring ud af træ, æder de det igen efter at det er passeret gennem deres mave, hvilket resulterer i at de skider savsmuld.",
+  "dyrfakt": "Bævere spiser kun det yderste af træet, og fordi det er svært at få næring ud af træ, æder de det igen efter at det er passeret gennem deres mave, hvilket resulterer i, at de skider savsmuld.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Fakta om bævere der genindtager deres afføring for at udtrække næring er biologisk plausibelt (koprofagi), men påstanden om at de kun spiser 'det yderste af træet' og at resultatet er 'savsmuld' er usædvanlig formulering — muligvis en komisk overdrivelse fra podcasten, men kan også være en transskriptionsfejl eller forenkling af mere nuanceret information."
 }

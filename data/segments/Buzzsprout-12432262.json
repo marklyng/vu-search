@@ -3,6 +3,8 @@
   "episode_title": "#116: Forsøgsmus er indavlet gennem 200 generationer!",
   "pub_date": "2023-03-13",
   "dyrfakt": null,
-  "listener_question": "Hvad er det smideste dyr i verden, og hvorfor er svaret en vandmand?",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Hvad er det smidigste dyr i verden, og hvorfor er svaret en vandmand?",
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "Rettede 'smidiste' til 'smidigste'. Lidt usikker på om 'smidigste' er det intenderede ord, men det giver god mening i konteksten."
 }

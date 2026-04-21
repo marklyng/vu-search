@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-13025915",
   "episode_title": "#129: MSG - Smagen af godt",
   "pub_date": "2023-06-12",
-  "dyrfakt": "Blækspruten kan få sin skygge til at forsvinde ved at sprette blikket over det hele eller ved at lave noget foran sig, der har en større skygge end dens egen",
+  "dyrfakt": "Blæksprutter kan få deres skygge til at forsvinde ved at sprede lyset over det hele eller ved at placere noget foran sig, der kaster en større skygge end deres egen.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Sætningen er uklar og svær at korrigere præcist – 'sprette blikket over det hele' giver ikke biologisk mening; muligvis handler det om kamouflage via lysregulering eller bioluminescens, men den præcise betydning er uklar pga. transskriptionsfejl."
 }

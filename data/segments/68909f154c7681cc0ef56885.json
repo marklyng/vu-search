@@ -2,7 +2,9 @@
   "episode_id": "68909f154c7681cc0ef56885",
   "episode_title": "#241: Kan virtual reality redde klimaet?",
   "pub_date": "2025-08-04",
-  "dyrfakt": "Høner kan udstøde uønskede sæde, men de gør det aldrig. Der er ikke noget sæde, der er uønsket.",
+  "dyrfakt": "Høner kan udstøde uønsket sæd, men de gør det aldrig. Der er ikke noget sæd, der er uønsket.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'sæde' er sandsynligvis 'sæd' (sperma) – rettet. Sætningen er lidt uklar/mærkelig, men kan være korrekt gengivet fra podcasten."
 }

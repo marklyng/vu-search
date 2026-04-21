@@ -2,7 +2,10 @@
   "episode_id": "67f2ccc1e7a7d0739fcb87e0",
   "episode_title": "#224: Dødsdruk som parringsritual",
   "pub_date": "2025-04-07",
-  "dyrfakt": "De kan spise sig igennem træ dobbelt så hurtigt, hvis de lytter til rockmusik.",
+  "dyrfakt": "Bævere kan spise sig igennem træ dobbelt så hurtigt, hvis de lytter til rockmusik.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "animal": "bæver",
+  "certainty": 90,
+  "review_notes": null
 }

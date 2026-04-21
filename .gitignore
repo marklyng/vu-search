@@ -24,3 +24,6 @@ Thumbs.db
 
 # Local Claude tooling
 .claude/
+
+# Secrets
+.env

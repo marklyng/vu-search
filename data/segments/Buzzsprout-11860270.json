@@ -4,5 +4,7 @@
   "pub_date": "2022-12-12",
   "dyrfakt": "Det sorte næsehorn tager ikke særlig meget skade af at blive flyttet med helikopter på hovedet.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Fakta om næsehorn der transporteres hængende på hovedet fra helikopter – usædvanligt men dokumenteret sandt. Sætningen er naturlig og komplet."
 }

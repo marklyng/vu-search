@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-12761857",
   "episode_title": "#123: Kognitivt bias",
   "pub_date": "2023-05-01",
-  "dyrfakt": "Thrurps er små vepser, der er mindre end en millimeter, og de kravler op under øjnene på dig.",
+  "dyrfakt": null,
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 100,
+  "review_notes": null
 }

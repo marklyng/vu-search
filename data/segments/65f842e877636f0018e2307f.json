@@ -2,7 +2,9 @@
   "episode_id": "65f842e877636f0018e2307f",
   "episode_title": "#169: Børn ved ikke hvad kød er",
   "pub_date": "2024-03-18",
-  "dyrfakt": "Leopard-sælens klik kan under vand komme helt op på 150-180 decibel, hvilket er højere end et jetfly og kan springe en trumme hen under vand.",
-  "listener_question": "Hvad kom først, bin eller blomsten?",
-  "model": "claude-haiku-4-5"
+  "dyrfakt": "Leopardsælens klik kan under vand komme helt op på 150-180 decibel, hvilket er højere end et jetfly og kan sprænge en trommehinde under vand.",
+  "listener_question": "Hvad kom først, bien eller blomsten?",
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Rettet 'Leopard-sælens' til 'Leopardsælens', 'springe en trumme hen' til 'sprænge en trommehinde', og 'bin' til 'bien' i lytterspørgsmålet."
 }

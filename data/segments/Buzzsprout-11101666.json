@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-11101666",
   "episode_title": "#084: Hjernefrys for begyndere",
   "pub_date": "2022-08-09",
-  "dyrfakt": "De fleste mammutpopulationer døde for omkring 10.000 år siden, men der var en lille population af omkring 500.000 behårede mammutter, der levede på en ø i Arktis ved Nordpolen indtil så sent som 1650 f.Kr., hvilket er omkring 1000 år efter pyramiderne i Giza blev bygget.",
+  "dyrfakt": "De fleste mammutpopulationer døde for omkring 10.000 år siden, men der var en lille population af dværgmammutter, der levede på en ø i Arktis indtil så sent som 1650 f.Kr., hvilket er omkring 1000 år efter pyramiderne i Giza blev bygget.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Populationsstørrelsen '500.000' er sandsynligvis en fejl — en isoleret arktisk ø-population ville typisk være meget mindre (måske 500 individer), og 'behårede mammutter' er korrekt, men kombinationen med det høje tal og 'ved Nordpolen' virker upræcis eller fejltranskriberet; 'Wrangelø' er den kendte lokalitet, men er ikke nævnt i kildeteksten, så den er ikke tilføjet."
 }

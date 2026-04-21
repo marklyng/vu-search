@@ -4,5 +4,7 @@
   "pub_date": "2025-02-03",
   "dyrfakt": null,
   "listener_question": "Frederik Strid har skrevet ind, sandsynligvis som reaktion på afsnittet om xenotransplantation, altså hvor man tager organer fra andre dyr.",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "'Strid' som efternavn er muligvis en transskriptionsfejl for et andet navn, men kan ikke verificeres."
 }

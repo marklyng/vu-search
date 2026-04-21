@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-12808985",
   "episode_title": "#124: Den Spanske Syge var ikke spansk",
   "pub_date": "2023-05-08",
-  "dyrfakt": "Fugle, der har udviklet sig i koldere klimaer, har mindre næb",
+  "dyrfakt": "Fugle, der har udviklet sig i koldere klimaer, har mindre næb.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Faktaen virker kontraintuitiv og muligvis ukorrekt eller ufuldstændig – Bergmanns regel gælder kropsstørrelse, og næbstørrelse i kolde klimaer er ikke en etableret generel regel. Mulig transskriptionsfejl eller trunkering."
 }

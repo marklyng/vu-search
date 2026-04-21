@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Videnskabeligt Udfordret — Søg i afsnit</title>
   <meta name="description" content="Søg i alle afsnit af Videnskabeligt Udfordret. Find det afsnit du leder efter." />
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="style.css?v=3" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -20,32 +20,77 @@
         <p class="tagline">Vanvittig videnskab fortalt af fjollede forskere</p>
       </div>
     </div>
+    <nav class="site-nav" aria-label="Sidenavigation">
+      <button class="nav-btn nav-btn--active" id="nav-search" aria-pressed="true">Søg</button>
+      <button class="nav-btn" id="nav-viz" aria-pressed="false">Analyser</button>
+    </nav>
   </header>
 
   <main>
-    <section class="search-section">
-      <div class="search-wrapper">
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Søg i afsnit…"
-          autocomplete="off"
-          spellcheck="false"
-          autofocus
-        />
-        <span id="search-status" class="search-status" aria-live="polite"></span>
-      </div>
-    </section>
+    <div id="view-search">
+      <section class="search-section">
+        <div class="search-wrapper">
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Søg i afsnit…"
+            autocomplete="off"
+            spellcheck="false"
+            autofocus
+          />
+          <span id="search-status" class="search-status" aria-live="polite"></span>
+        </div>
+      </section>
 
-    <section id="results-section" class="results-section" hidden>
-      <p id="results-count" class="results-count"></p>
-      <ul id="results-list" class="results-list" role="list"></ul>
-    </section>
+      <section id="results-section" class="results-section" hidden>
+        <p id="results-count" class="results-count"></p>
+        <ul id="results-list" class="results-list" role="list"></ul>
+      </section>
 
-    <section id="browse-section" class="browse-section">
-      <p id="browse-label" class="browse-label"></p>
-      <ul id="browse-list" class="browse-list" role="list"></ul>
-    </section>
+      <section id="browse-section" class="browse-section">
+        <p id="browse-label" class="browse-label"></p>
+        <ul id="browse-list" class="browse-list" role="list"></ul>
+      </section>
+    </div>
+
+    <div id="view-viz" hidden>
+      <nav class="viz-toc" id="viz-toc" aria-label="Indholdsfortegnelse">
+        <p class="viz-toc-heading">Analyser</p>
+        <a href="#viz-disciplines" class="viz-toc-link">Videnskabernes atlas</a>
+        <a href="#viz-bestiary" class="viz-toc-link">Dyrebestiarum</a>
+        <a href="#viz-scatter" class="viz-toc-link">Lort vs. Videnskab</a>
+        <a href="#viz-hosts" class="viz-toc-link">Flemming vs. Mark</a>
+      </nav>
+      <div class="viz-sections">
+      <section class="viz-section" id="viz-disciplines">
+        <h2 class="viz-title">Videnskabernes atlas</h2>
+        <p class="viz-subtitle">Det bedste afsnit fra 10 videnskabelige discipliner — valgt af AI efter faglig dybde og uhøjtidelig absurditet</p>
+        <div class="viz-container" id="disciplines-container"></div>
+      </section>
+
+      <section class="viz-section" id="viz-bestiary">
+        <h2 class="viz-title">Dyrebestiarum</h2>
+        <p class="viz-subtitle">Alle dyr der er dukket op i dagens dyrefact</p>
+        <div class="viz-container" id="bestiary-container">
+          <div class="bestiary-grid" id="bestiary-grid"></div>
+          <div class="bestiary-detail" id="bestiary-detail" hidden></div>
+        </div>
+      </section>
+
+      <section class="viz-section" id="viz-scatter">
+        <h2 class="viz-title">Lort vs. Videnskab</h2>
+        <p class="viz-subtitle">Baseret på optælling af videnskabelige ord og frække ord i transskripterne</p>
+        <div class="viz-container" id="scatter-container"></div>
+      </section>
+
+      <section class="viz-section" id="viz-hosts">
+        <h2 class="viz-title">Flemming vs. Mark</h2>
+        <p class="viz-subtitle">Hvem nævnes mest per afsnit?</p>
+        <div class="viz-container" id="hosts-container"></div>
+      </section>
+
+      </div><!-- .viz-sections -->
+    </div>
   </main>
 
   <!-- Episode detail panel (slides in from right) -->
@@ -68,5 +113,6 @@
   </footer>
 
   <script src="app.js"></script>
+  <script src="viz.js"></script>
 </body>
 </html>

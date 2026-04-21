@@ -2,7 +2,9 @@
   "episode_id": "674e103a85ae82730a3e0d19",
   "episode_title": "#206: Videnskabskrigen med Sabrina Vitting-Seerup",
   "pub_date": "2024-12-02",
-  "dyrfakt": "Høns kan udstøde uønskede sæd",
+  "dyrfakt": "Høns kan udstøde uønskede sæd.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Sætningen er kort og lidt abrupt, men faktum er biologisk korrekt – høns kan udskyde/afvise uønsket sæd efter parring. Ingen rettelser foretaget."
 }

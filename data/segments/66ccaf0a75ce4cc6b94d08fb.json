@@ -4,5 +4,6 @@
   "pub_date": "2024-08-26",
   "dyrfakt": "Vandmænd har ingen hjerne, hjerte, knogler eller øjne, og de har eksisteret siden før dinosaurerne.",
   "listener_question": "Hvordan formerer vandmænd sig?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 99
 }

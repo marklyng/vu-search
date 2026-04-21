@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-10984408",
   "episode_title": "#081: Antisociale elementer",
   "pub_date": "2022-07-19",
-  "dyrfakt": "Den traditionelle måde at kastrere rensdyr på på Jamal-haløen i Rusland foregår ved, at hyrderne bider renerne meget hårdt i siklerne.",
+  "dyrfakt": "Den traditionelle måde at kastrere rensdyr på på Jamal-halvøen i Rusland foregår ved, at hyrderne bider renerne meget hårdt i siklerne.",
   "listener_question": "Hvorfor er mennesker venstre- eller højrehåndede, og hvorfor er det ikke evolutionært smart at være mindre god med den ene hånd?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Rettede 'haløen' til 'halvøen'. 'Siklerne' er en usædvanlig betegnelse i denne kontekst — muligvis menes testiklerne, men da kastrering ved bid er dokumenteret praksis, er ordet muligvis korrekt dialektalt/fagligt."
 }

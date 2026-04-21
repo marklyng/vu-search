@@ -2,7 +2,9 @@
   "episode_id": "6977c15aeefa744a9c7f8911",
   "episode_title": "#254: Houston, vi har brug for ingenører!",
   "pub_date": "2026-01-26",
-  "dyrfakt": "Valhejen er verdens største fisk.",
+  "dyrfakt": "Hvalhåjen er verdens største fisk.",
   "listener_question": "Hvornår har et brød en skorpe versus en kant? Skal en skorpe være sprød for at være en skorpe, eller er det en kant når brødet er blødt?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Korrigeret 'Valhejen' til 'Hvalhåjen' (hvalhajen er verdens største fisk)."
 }

@@ -3,6 +3,8 @@
   "episode_title": "#085: Små hunde lyver også på Tinder",
   "pub_date": "2022-08-15",
   "dyrfakt": "Høne er objektivt set bedre end næbdyr på alle parametre",
-  "listener_question": "Er Nobelprisen skattefri, og modtager man penge for at vinde Nobel-prisen?",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Er Nobelprisen skattefri, og modtager man penge for at vinde Nobelprisen?",
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Dyrfakten er sandsynligvis en satirisk/humoristisk påstand fra podcasten, men den er faktisk usandsynlig som seriøs dyrfakt — muligvis korrekt gengivet i kontekst. Lytterspørgsmålet handler ikke om dyr, men er rettet til podcastens generelle format."
 }

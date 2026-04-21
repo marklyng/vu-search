@@ -4,5 +4,7 @@
   "pub_date": "2025-04-14",
   "dyrfakt": "Alt kødkvæg i Danmark er efterkommere af Sønderjyllands Jens, en tyr fra 1967-1978.",
   "listener_question": "Hvorfor ånder man på noget for at varme det op, men puster på det for at køle det ned, når luften kommer fra lungerne i begge tilfælde?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Dyrfakten er usædvanlig og svær at verificere — 'Sønderjyllands Jens' er et specifikt egenavn, og påstanden om at alt dansk kødkvæg stammer fra én tyr virker usandsynlig, men kan ikke afvises som podcastandekdote; lav sikkerhed på faktaindholdet."
 }

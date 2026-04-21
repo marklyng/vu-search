@@ -4,5 +4,7 @@
   "pub_date": "2023-01-16",
   "dyrfakt": "Kaniner spiser kun en bestemt type af deres egen lort, som hedder nattafføring, og den er meget sort og skinnende.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'Nattafføring' er sandsynligvis en fejlgengivelse af det korrekte fagudtryk 'cøkotrofer' (cecotrofer/blindtarmspiller), men da ordet ikke er direkte forkert som beskrivelse, og da indholdet er faktisk korrekt, beholdes formuleringen med lav sikkerhed."
 }

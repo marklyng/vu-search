@@ -3,6 +3,8 @@
   "episode_title": "#250: Kan traumer gå i arv?",
   "pub_date": "2025-12-01",
   "dyrfakt": null,
-  "listener_question": "Psykologi, adfærd, traumavidenskab - spørgsmål om hokus pokus og nedbygning af trauma.",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Psykologi, adfærd, traumavidenskab - spørgsmål om hokus pokus og nedbrydning af trauma.",
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'nedbygning' er sandsynligvis 'nedbrydning' – rettet. Muligvis også 'bearbejdning', men 'nedbrydning' er tættest på originalen."
 }

@@ -2,7 +2,9 @@
   "episode_id": "66f186b56f9d68541bdd11cc",
   "episode_title": "#196: Radioaktive svampe",
   "pub_date": "2024-09-23",
-  "dyrfakt": "Dolkhaler har blåt blod, der kan bruges som kontamineringsindikator i nogle sammenhænge, fordi det koagulerer, når det kommer i kontakt med bakterielle toxiner.",
+  "dyrfakt": "Dolkhaler har blåt blod, der kan bruges som kontamineringsindikator i nogle sammenhænge, fordi det koagulerer, når det kommer i kontakt med bakterielle toksiner.",
   "listener_question": "Skyldes Flemmings kroniske diarré hans to børn, eller skyldes det, at han arbejder med tarmebakterier og har dårlig håndhygiejne på laboratoriet?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "'toxiner' rettet til 'toksiner' (dansk standardstavning); lytterspørgsmålet er usædvanligt personligt/humoristisk men sandsynligvis korrekt gengivet fra podcastens tone."
 }

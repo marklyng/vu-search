@@ -4,5 +4,7 @@
   "pub_date": "2024-10-14",
   "dyrfakt": "Rotter kan ikke bøvse",
   "listener_question": "Hvorfor spiser vi majs, når vi ikke kan få særlig meget næring ud af det, da det kommer ud på samme måde som det kommer ind?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Alt ser korrekt ud. Dyrfakta er veldokumenteret (rotter mangler evnen til at bøvse/rape)."
 }

@@ -4,5 +4,7 @@
   "pub_date": "2025-05-05",
   "dyrfakt": null,
   "listener_question": "Hvorfor vokser prostata, når man bliver ældre, og hvorfor ligger den omkring urinlederen i stedet for omkring sædlederen, når man stadig kan levere sæd uden besvær?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "Anatomisk set ligger prostata omkring urethra (urinrøret), ikke urinlederen (ureter) — men da dette er et lytterspørgsmål gengivet som stillet, er ordvalget beholdt som det er uden korrektion."
 }

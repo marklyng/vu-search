@@ -4,5 +4,6 @@
   "pub_date": "2025-01-13",
   "dyrfakt": "Køer kan sove stående, men de kan kun drømme liggende.",
   "listener_question": "Hvis planter kan skrige, se, kommunikere med hinanden og dele ressourcer, betyder det så, at der er bevidsthed, og hvad skal veganere i så fald spise?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 99
 }

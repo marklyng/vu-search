@@ -4,5 +4,7 @@
   "pub_date": "2023-06-19",
   "dyrfakt": "Der findes en form for døgnflue, der ikke har nogen mund. Den lever i lige omkring fem minutter.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Femminutters-levetiden virker usædvanligt kort selv for døgnfluer – typisk lever de voksne døgnfluer i få timer til dage, ikke fem minutter. Fakten kan være korrekt men er usikker."
 }

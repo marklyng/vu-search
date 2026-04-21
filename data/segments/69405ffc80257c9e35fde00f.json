@@ -2,7 +2,9 @@
   "episode_id": "69405ffc80257c9e35fde00f",
   "episode_title": "#251: Forskning om jul",
   "pub_date": "2025-12-15",
-  "dyrfakt": "Randstyr har øjne, der kan skifte farve om vinteren til blå for at tilpasse sig til den lange vinter og bedre kunne se i mørket. Om sommeren bliver øjnene igen brune-gyldne.",
+  "dyrfakt": "Rensdyr har øjne, der kan skifte farve om vinteren til blå for at tilpasse sig til den lange vinter og bedre kunne se i mørket. Om sommeren bliver øjnene igen brune-gyldne.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "'Randstyr' rettet til 'Rensdyr' (ASR-fejl). Faktapåstanden er usædvanlig men dokumenteret i videnskabelig litteratur."
 }

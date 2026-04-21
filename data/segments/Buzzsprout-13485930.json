@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-13485930",
   "episode_title": "#140: Oppenheimer - En atombombe er bare et festivaltelt med diarré",
   "pub_date": "2023-08-28",
-  "dyrfakt": "Hænderne af det lille musselinende punktdyr Antikinus duartii fra Australien bliver så stresset, aggressiv og seksuelt udmattet under paringssæsonen, at de dør af det.",
+  "dyrfakt": "Hannerne af det lille muselignende pungdyr Antechinus duartii fra Australien bliver så stressede, aggressive og seksuelt udmattede under paringssæsonen, at de dør af det.",
   "listener_question": "Hvorfor hedder det matros og ikke patros, og hvorfor er betydningen af matron og patron så forskellige, selvom de ligner ordene for matriark og patriark?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'Hænderne' rettet til 'Hannerne', 'musselinende punktdyr' rettet til 'muselignende pungdyr', og 'Antikinus duartii' rettet til 'Antechinus duartii'; en vis usikkerhed om artsnavn (muligvis A. duartii eller en anden Antechinus-art)."
 }

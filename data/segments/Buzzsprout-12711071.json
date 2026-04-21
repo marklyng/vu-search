@@ -4,5 +4,7 @@
   "pub_date": "2023-04-24",
   "dyrfakt": null,
   "listener_question": "Hvordan opfatter hjernen sig selv? Når vi tænker over noget, tænker vi over vores egen opfattelse – hvad er denne sans, hvormed hjernen opfatter sig selv og reagerer på det?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Spørgsmålet er velformuleret og naturligt dansk, men er filosofisk/neurologisk snarere end dyreorienteret – kan være korrekt i kontekst af programmet."
 }

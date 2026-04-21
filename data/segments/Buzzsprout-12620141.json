@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-12620141",
   "episode_title": "#120: Fremtidssyn",
   "pub_date": "2023-04-10",
-  "dyrfakt": "Albatrossen kan flyve i overvis uden at lande. Den bruger sine første seks år i luften uden over hovedet at røre jorden.",
+  "dyrfakt": "Albatrossen kan flyve i årevis uden at lande. Den bruger sine første seks år i luften uden overhovedet at røre jorden.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": "'overvis' rettet til 'årevis' og 'over hovedet' sammenskrevet til 'overhovedet'."
 }

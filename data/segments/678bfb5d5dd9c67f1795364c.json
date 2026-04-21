@@ -2,7 +2,9 @@
   "episode_id": "678bfb5d5dd9c67f1795364c",
   "episode_title": "#213: Kan organer fra dyr bruges i mennesker?",
   "pub_date": "2025-01-20",
-  "dyrfakt": "Kriegskrise blev brugt af romerne, fordi når de skreg, ville de få skræk for elefanterne hos modstanderen og få dem til at nedtrampe deres egen herre.",
-  "listener_question": "Når man putter et produkt i sit hår, hvor forsvinder det så hen? Ind i håret eller er det bare det, som Big Hair vil have os til at tro?",
-  "model": "claude-haiku-4-5"
+  "dyrfakt": "Krigsgrise blev brugt af romerne, fordi når de skreg, ville de skræmme elefanterne hos modstanderen og få dem til at nedtrampe deres egne herrer.",
+  "listener_question": "Når man putter et produkt i sit hår, hvor forsvinder det så hen? Ind i håret, eller er det bare det, som Big Hair vil have os til at tro?",
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": null
 }

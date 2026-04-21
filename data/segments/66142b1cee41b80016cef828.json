@@ -2,7 +2,9 @@
   "episode_id": "66142b1cee41b80016cef828",
   "episode_title": "#172: Aphantasia: Manglen på det indre øje",
   "pub_date": "2024-04-08",
-  "dyrfakt": "Baktriske kameler kan lukke næsebordene som værn mod at inhalere sand og sandstøv. De har også masser af hår i ørerne og to lag øjenvipper for at forhindre, at sandet kommer ind der.",
+  "dyrfakt": "Baktriske kameler kan lukke næseborene som værn mod at inhalere sand og sandstøv. De har også masser af hår i ørerne og to lag øjenvipper for at forhindre, at sandet kommer ind der.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": "Rettede 'næsebordene' til 'næseborene' (næsebor, flertal: næsebor eller næseboer)."
 }

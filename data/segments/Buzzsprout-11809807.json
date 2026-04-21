@@ -3,6 +3,8 @@
   "episode_title": "#102: Aber på stoffer",
   "pub_date": "2022-12-05",
   "dyrfakt": null,
-  "listener_question": "Er det realistisk at kunne slakte 1100 dyr om dagen, eller lyver Nikolaj Likos?",
-  "model": "claude-haiku-4-5"
+  "listener_question": "Er det realistisk at kunne slagte 1100 dyr om dagen, eller lyver Nikolaj Lie Kaas?",
+  "model": "claude-haiku-4-5",
+  "certainty": 92,
+  "review_notes": null
 }

@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-11346032",
   "episode_title": "#090: Hvor mange ravne skal der til at skrue en pære i?",
   "pub_date": "2022-09-19",
-  "dyrfakt": "Tiger har falske øjne på bagsiden af deres ører for at skræmme rovdyr til ikke at angribe dem bagfra.",
+  "dyrfakt": "Tigere har falske øjne på bagsiden af deres ører for at skræmme rovdyr til ikke at angribe dem bagfra.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Rettet 'Tiger' til 'Tigere' (flertal)."
 }

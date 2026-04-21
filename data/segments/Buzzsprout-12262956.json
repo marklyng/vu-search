@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-12262956",
   "episode_title": "#113: Smid testiklerne og behold håret!",
   "pub_date": "2023-02-20",
-  "dyrfakt": "Pandaer skider 48-62 pund lort om dagen",
+  "dyrfakt": "Pandaer skider 48-62 pund lort om dagen.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Faktum virker usandsynligt højt – en stor panda producerer typisk omkring 10-18 kg afføring dagligt, men det kan afspejle en overdrevet/komisk formulering fra podcasten, så det er beholdt som angivet."
 }

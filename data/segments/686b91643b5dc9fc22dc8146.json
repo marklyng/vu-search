@@ -2,7 +2,9 @@
   "episode_id": "686b91643b5dc9fc22dc8146",
   "episode_title": "#237: Manden der knak enigma koden",
   "pub_date": "2025-07-07",
-  "dyrfakt": "Diktat-antiloper markerer deres territorium med deres tårer.",
+  "dyrfakt": "Dikdik-antiloper markerer deres territorium med deres tårer.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'Diktat-antiloper' er sandsynligvis en fejl for 'dikdik-antiloper' (Madoqua), en lille antilopeart kendt for at markere territorium med kirtelsekret nær øjnene."
 }

@@ -2,7 +2,9 @@
   "episode_id": "699cb817483a121592c15e36",
   "episode_title": "#256: Hvem er det gennemsnitlige menneske?",
   "pub_date": "2026-02-23",
-  "dyrfakt": "Kronen er en sandorm.",
+  "dyrfakt": "En sandorm har en pH på 5,5 i maven.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 97,
+  "review_notes": null
 }

@@ -2,7 +2,9 @@
   "episode_id": "66df2c9e8050843a93406b31",
   "episode_title": "#194: Galen Winsor",
   "pub_date": "2024-09-09",
-  "dyrfakt": "Flagermus har navler og navlefnuller",
+  "dyrfakt": "Flagermus har navler og navlefnuller.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "Faktuelt usædvanlig påstand – flagermus er pattedyr og har navler, men 'navlefnuller' er uventet; mulig transskriptionsfejl eller humoristisk pointe i podcasten."
 }

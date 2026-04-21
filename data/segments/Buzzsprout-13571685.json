@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-13571685",
   "episode_title": "#142: Videnskab med kunst (m. Sabrina Vitting-Seerup)",
   "pub_date": "2023-09-11",
-  "dyrfakt": "Der er omkring 50.000 æderkopper per halve hektar i naturområder, og fugleæderkopper kan overleve to år uden mad.",
-  "listener_question": "Hvorfor udvider en skumfiduser så sindssygt meget, når man kommer den i mikrofonen?",
-  "model": "claude-haiku-4-5"
+  "dyrfakt": "Der er omkring 50.000 edderkopper per halve hektar i naturområder, og fugleedderkopper kan overleve to år uden mad.",
+  "listener_question": "Hvorfor udvider en skumfidus sig så sindssygt meget, når man kommer den i mikrobølgeovnen?",
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "'æderkopper' rettet til 'edderkopper'; 'mikrofonen' er sandsynligvis en fejl for 'mikrobølgeovnen'; 'skumfiduser' rettet til 'skumfidus sig' for naturlig dansk sætningsstruktur."
 }

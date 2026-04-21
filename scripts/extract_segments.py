@@ -75,13 +75,19 @@ Two recurring segments appear near the end of each episode:
    Extract the topic or content of the question concisely (1–2 sentences max).
    Do not include framing like "Vi har et fra..." — just the question.
 
-Return null for either field if the segment is absent or unclear in the excerpt.
+3. ANIMAL — if dyrfakt is present, identify the primary animal in the fact.
+   Output the animal name in clean standard Danish (e.g. "gepard", "ko", "blæksprutte").
+   Use the singular indefinite form where possible (e.g. "ko" not "køer", "gorilla" not "goriller").
+   Return null if no animal is clearly identifiable.
+
+Return null for any field if absent or unclear in the excerpt.
 Return JSON only, no explanation."""
 
 
 class SegmentExtraction(BaseModel):
     dyrfakt: Optional[str]
     listener_question: Optional[str]
+    animal: Optional[str]
 
 
 def find_context(text: str, pattern: str) -> str | None:
@@ -163,6 +169,7 @@ def extract_segments_sync(
             "pub_date": episode.get("date", ""),
             "dyrfakt": result.dyrfakt,
             "listener_question": result.listener_question,
+            "animal": result.animal,
             "model": MODEL,
         }
 

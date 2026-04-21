@@ -2,7 +2,9 @@
   "episode_id": "Buzzsprout-12522418",
   "episode_title": "#118: Religion er (blandt andet) bestemt af gener (tvillingestudier)",
   "pub_date": "2023-03-27",
-  "dyrfakt": "Katte kan blive drægt af flere fædre på samme tid, og det er derfor at forskellige unger kan have forskellige farver.",
+  "dyrfakt": "Katte kan blive drægtige med unger fra flere fædre på samme tid, og det er derfor at forskellige unger i samme kuld kan have forskellige farver.",
   "listener_question": null,
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 90,
+  "review_notes": "'drægt' er rettet til 'drægtige med unger'; sætningen er udvidet let for at gøre meningen klar og naturlig."
 }

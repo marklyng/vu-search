@@ -4,5 +4,7 @@
   "pub_date": "2025-04-28",
   "dyrfakt": null,
   "listener_question": "Hvorfor bliver fluer så mærkelige omkring lysekroner, og er det ved alle lysekroner eller kun ved nogle?",
-  "model": "claude-haiku-4-5"
+  "model": "claude-haiku-4-5",
+  "certainty": 95,
+  "review_notes": "Spørgsmålet er naturligt dansk, men 'mærkelige' er lidt vagt – muligvis en transskriptionsfejl for et mere specifikt ord (f.eks. 'tiltrukket' eller 'forvirrede'). Betydningen er dog klar nok."
 }
