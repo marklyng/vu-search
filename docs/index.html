@@ -54,6 +54,14 @@
     </div>
 
     <div id="view-viz" hidden>
+      <nav class="viz-toc" id="viz-toc" aria-label="Indholdsfortegnelse">
+        <p class="viz-toc-heading">Analyser</p>
+        <a href="#viz-disciplines" class="viz-toc-link" data-target="viz-disciplines">Videnskabernes atlas</a>
+        <a href="#viz-bestiary" class="viz-toc-link" data-target="viz-bestiary">Dyrebestiarum</a>
+        <a href="#viz-scatter" class="viz-toc-link" data-target="viz-scatter">Lort vs. Videnskab</a>
+        <a href="#viz-hosts" class="viz-toc-link" data-target="viz-hosts">Flemming vs. Mark</a>
+      </nav>
+      <div class="viz-sections">
       <section class="viz-section" id="viz-disciplines">
         <h2 class="viz-title">Videnskabernes atlas</h2>
         <p class="viz-subtitle">Det bedste afsnit fra 10 videnskabelige discipliner — valgt af AI efter faglig dybde og uhøjtidelig absurditet</p>
@@ -62,7 +70,7 @@
 
       <section class="viz-section" id="viz-bestiary">
         <h2 class="viz-title">Dyrebestiarum</h2>
-        <p class="viz-subtitle">Alle dyr der er dukket op i dagens dyrfakt</p>
+        <p class="viz-subtitle">Alle dyr der er dukket op i dagens dyrefact</p>
         <div class="viz-container" id="bestiary-container">
           <div class="bestiary-grid" id="bestiary-grid"></div>
           <div class="bestiary-detail" id="bestiary-detail" hidden></div>
@@ -80,6 +88,8 @@
         <p class="viz-subtitle">Hvem nævnes mest per afsnit?</p>
         <div class="viz-container" id="hosts-container"></div>
       </section>
+
+      </div><!-- .viz-sections -->
     </div>
   </main>
 

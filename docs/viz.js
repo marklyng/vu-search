@@ -619,6 +619,35 @@ function renderDisciplines(data) {
   container.appendChild(grid);
 }
 
+// ── TOC active highlighting ───────────────────────────────────────────────────
+
+let tocInitialized = false;
+
+function initVizToc() {
+  if (tocInitialized) return;
+  tocInitialized = true;
+
+  const links = Array.from(document.querySelectorAll(".viz-toc-link"));
+  if (!links.length) return;
+
+  const sections = links
+    .map((l) => document.getElementById(l.dataset.target))
+    .filter(Boolean);
+
+  function updateActive() {
+    let activeId = sections[0] ? sections[0].id : null;
+    for (const s of sections) {
+      if (s.getBoundingClientRect().top <= 120) activeId = s.id;
+    }
+    for (const l of links) {
+      l.classList.toggle("viz-toc-link--active", l.dataset.target === activeId);
+    }
+  }
+
+  window.addEventListener("scroll", updateActive, { passive: true });
+  updateActive();
+}
+
 // ── Nav toggle + lazy load ────────────────────────────────────────────────────
 
 let vizLoaded = false;
@@ -626,6 +655,8 @@ let vizLoaded = false;
 function loadViz() {
   if (vizLoaded) return;
   vizLoaded = true;
+
+  initVizToc();
 
   const containers = [
     "bestiary-grid", "scatter-container", "hosts-container", "disciplines-container",
@@ -670,6 +701,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnSearch.setAttribute("aria-pressed", "true");
     btnViz.classList.remove("nav-btn--active");
     btnViz.setAttribute("aria-pressed", "false");
+    document.body.classList.remove("viz-open");
   });
 
   btnViz.addEventListener("click", () => {
@@ -679,6 +711,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnViz.setAttribute("aria-pressed", "true");
     btnSearch.classList.remove("nav-btn--active");
     btnSearch.setAttribute("aria-pressed", "false");
+    document.body.classList.add("viz-open");
     loadViz();
   });
 });
