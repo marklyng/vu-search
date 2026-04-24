@@ -554,11 +554,13 @@ def build_viz_data(
     }
 
 
-def build_disciplines(episodes: list[dict]) -> list[dict]:
+def build_disciplines(episodes: list[dict]) -> list[dict] | None:
     """
-    Call Claude to pick the best representative episode for each discipline.
-    Scores each candidate on scientific depth (0-50) + unhinged humor (0-50).
-    Returns a list of 10 dicts or [] on failure.
+    Call Claude to select representative episodes for each discipline.
+    Returns up to 5 qualifying candidates per discipline; one is chosen randomly
+    at build time so the atlas shows a different episode on every run.
+    Returns None if fewer than all 10 disciplines are present (signals caller to retry).
+    Returns [] if the API key is missing (skip silently, no retry needed).
     """
     try:
         import anthropic
@@ -583,26 +585,24 @@ def build_disciplines(episodes: list[dict]) -> list[dict]:
 
     prompt = f"""Du er ekspert i dansk populærvidenskab. Podcasten "Videnskabeligt Udfordret" er en komedievidenskabspodcast, hvor humor og absurditet er LIGESÅ vigtige som videnskaben.
 
-Det perfekte afsnit for en disciplin kombinerer:
-1. FAGLIG DYBDE (0-50 point): Udforsker et ægte begreb inden for disciplinen.
-2. UHØJTIDELIG ABSURDITET (0-50 point): Er sjovt, skørt, vanvittigt eller forfriskende absurd.
-
-Vælg IKKE det mest seriøse afsnit — vælg det med den BEDSTE balance.
+Et godt repræsentativt afsnit for en disciplin skal:
+1. Dække et ægte begreb fra disciplinen med reel faglig substans.
+2. Passe til showets humoristiske og absurde tone.
 
 Alle {len(episodes)} afsnit (format: #nummer: titel — beskrivelse):
 
 {episodes_text}
 
-For hver af de 10 discipliner nedenfor, find DE 3 BEDSTE kandidater fra listen (alle 3 skal score mindst 70/100):
+For hver af de 10 discipliner nedenfor, find op til 5 repræsentative kandidater fra listen. Det behøver ikke være det "bedste" — bare afsnit der dækker disciplinen godt og passer til showets tone:
 {disciplines_text}
 
 Svar KUN med et JSON-array med præcis 10 objekter i samme rækkefølge som disciplinlisten. Hvert objekt:
 - "discipline": disciplinens navn (eksakt som listet)
-- "candidates": array med præcis 3 objekter, hvert med:
+- "candidates": array med op til 5 objekter, hvert med:
   - "ep": afsnittets nummer (heltal)
   - "title": afsnittets fulde titel
-  - "fit_score": samlet score 0-100
-  - "reason": én sætning på dansk om BÅDE den faglige dybde OG det absurde/sjove"""
+  - "fit_score": repræsentativitetsscore 0-100
+  - "reason": én sætning på dansk om hvorfor afsnittet repræsenterer disciplinen"""
 
     client = anthropic.Anthropic(api_key=api_key)
     print("  Calling Claude API for discipline classification...")
@@ -618,14 +618,15 @@ Svar KUN med et JSON-array med præcis 10 objekter i samme rækkefølge som disc
     json_match = re.search(r"\[[\s\S]*\]", response_text)
     if not json_match:
         print(f"  WARNING: Could not find JSON array in discipline response: {response_text[:300]}", file=sys.stderr)
-        return []
+        return None
 
     try:
         raw = json.loads(json_match.group())
     except json.JSONDecodeError as e:
         print(f"  WARNING: JSON parse error in discipline response: {e}", file=sys.stderr)
         print(f"  Raw response excerpt: {response_text[:400]}", file=sys.stderr)
-        return []
+        return None
+
     ep_num_to_id = {ep.get("episode_number"): ep["id"] for ep in episodes}
     result = []
     for item in raw:
@@ -642,6 +643,12 @@ Svar KUN med et JSON-array med præcis 10 objekter i samme rækkefølge som disc
             "fit_score": pick.get("fit_score", 0),
             "reason": pick.get("reason", ""),
         })
+
+    missing = set(DISCIPLINES) - {r["discipline"] for r in result}
+    if missing:
+        print(f"  WARNING: Missing disciplines: {missing}", file=sys.stderr)
+        return None
+
     return result
 
 
@@ -686,8 +693,21 @@ def main():
     print("  Building viz data...")
     viz = build_viz_data(episodes, transcripts, segments)
 
-    print("  Building discipline atlas...")
-    viz["disciplines"] = build_disciplines(episodes)
+    MAX_DISCIPLINE_ATTEMPTS = 3
+    disciplines = None
+    for attempt in range(1, MAX_DISCIPLINE_ATTEMPTS + 1):
+        print(f"  Building discipline atlas (attempt {attempt}/{MAX_DISCIPLINE_ATTEMPTS})...")
+        disciplines = build_disciplines(episodes)
+        if disciplines is None and attempt < MAX_DISCIPLINE_ATTEMPTS:
+            print("  Retrying...", file=sys.stderr)
+        elif disciplines is not None or disciplines == []:
+            break
+
+    if disciplines is None:
+        print("ERROR: Could not get all 10 discipline cards after 3 attempts.", file=sys.stderr)
+        sys.exit(1)
+
+    viz["disciplines"] = disciplines
 
     print("  Writing viz.json...")
     with open(VIZ_FILE, "w", encoding="utf-8") as f:

@@ -601,7 +601,7 @@ function renderDisciplines(data) {
       <div class="discipline-bar-track">
         <div class="discipline-bar-fill" style="width:${disc.fit_score}%;background:${escHtml(fillColor)}"></div>
       </div>
-      <div class="discipline-score">Balance: ${disc.fit_score}/100</div>
+      <div class="discipline-score">Relevans: ${disc.fit_score}/100</div>
       <div class="discipline-reason">"${escHtml(disc.reason)}"</div>
     `;
 

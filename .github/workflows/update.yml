@@ -79,6 +79,8 @@ jobs:
 
       - name: Build site data
         if: steps.gate.outputs.proceed == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/build_site.py
 
       - name: Validate output
