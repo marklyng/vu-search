@@ -1,5 +1,16 @@
 [
   {
+    "id": "69f88cb88dd960ac61d87bac",
+    "title": "#262: Hvorfor bliver AI hele tiden til Hitler?",
+    "date": "2026-05-18",
+    "audio_url": "https://sphinx.acast.com/p/open/s/65ba62a1f83c2300169e5234/e/69f88cb88dd960ac61d87bac/media.mp3",
+    "episode_url": "https://shows.acast.com/videnskabeligt-udfordret/episodes/262-ai-kan-traenes-til-at-vaere-sleeper-agenter",
+    "description": "I dette afsnit dykker Mark ned i, hvordan forskere har fået sprogmodeller til at udvikle skjulte personligheder, fra 1800-tals biologer til selvest Hitler! Vi undersøger det skræmmende fænomen “weird generalization”, hvor små ændringer kan give massive og uforudsigelige konsekvenser og hvordan det kan bruges til at skabe skjulte “bagdøre” i AI-systemer, som ingen opdager før det er for sent.",
+    "duration": "1:22:08",
+    "episode_number": 262,
+    "image_url": "https://assets.pippa.io/shows/65ba62a1f83c2300169e5234/1779132350190-1b26847e-7afb-45e4-aa60-8834c6fa62d9.jpeg"
+  },
+  {
     "id": "69f8d5b79d4faa1506e77e04",
     "title": "#261: Den ukendte sygdom der gjorde folk til levende statuer",
     "date": "2026-05-04",
